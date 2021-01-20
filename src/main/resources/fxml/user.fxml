@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="pane" prefHeight="300.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <ImageView fx:id="userImage" fitHeight="37.0" fitWidth="43.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+       <Label fx:id="nickNameLabel" layoutX="77.0" layoutY="23.0" prefHeight="17.0" prefWidth="131.0">
+           <font>
+               <Font name="Yuanti SC Light" size="14.0" />
+           </font>
+       </Label>
+       <Label fx:id="emailLabel" layoutX="67.0" layoutY="43.0" prefHeight="20.0" prefWidth="162.0">
+           <font>
+       <Font name="Yuanti SC Light" size="13.0" />
+           </font>
+       </Label>
+       <Label fx:id="logoutLabel" layoutX="105.0" layoutY="235.0" onMouseClicked="#logoutLabelMouseClicked" text="退出登录" textFill="#f8c1c1">
+           <font>
+             <Font name="Yuanti SC Light" size="13.0" />
+           </font>
+       </Label>
+   </children>
+</Pane>

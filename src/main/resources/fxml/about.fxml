@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+               <image>
+                  <Image url="@img/hand-tools.png" />
+               </image>
+            </ImageView>
+            <Label text="MAVD">
+               <font>
+                  <Font name="Yuanti SC Bold" size="25.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" text="Version .v" textFill="#5b5858">
+                     <font>
+                        <Font name="Yuanti SC Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="versionLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" text="v0.0.1" textFill="#5b5858">
+                     <font>
+                        <Font name="Yuanti SC Bold" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label text="Copyright © 2020-2021 MONKEYAPP.CN All rights reserved." VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Yuanti SC Light" size="13.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </children>
+</Pane>

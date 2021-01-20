@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="root" alignment="CENTER" prefHeight="550.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox alignment="CENTER">
+      <children>
+         <HBox fx:id="setting1HBox" alignment="CENTER" onMouseClicked="#setting1HBoxMouseClicked" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/wordpress-simple.png" />
+                  </image>
+               </ImageView>
+               <Label text="Wordpress配置">
+                  <font>
+                     <Font name="Yuanti SC Light" size="14.0" />
+                  </font></Label>
+            </children>
+         </HBox>
+         <HBox fx:id="setting2HBox" alignment="CENTER" onMouseClicked="#setting2HBoxMouseClicked" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/cloud.png" />
+                  </image>
+               </ImageView>
+               <Label text="云存储配置">
+                  <font>
+                     <Font name="Yuanti SC Light" size="14.0" />
+                  </font></Label>
+            </children>
+         </HBox>
+         <HBox fx:id="setting3HBox" alignment="CENTER" onMouseClicked="#setting3HBoxMouseClicked" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/project-hover-menu.png" />
+                  </image>
+               </ImageView>
+               <Label text="其他配置">
+                  <font>
+                     <Font name="Yuanti SC Light" size="14.0" />
+                  </font></Label>
+            </children>
+         </HBox>
+      </children>
+      <VBox.margin>
+         <Insets bottom="20.0" top="20.0" />
+      </VBox.margin>
+   </HBox>
+
+    <!--这里不同配置通过代码的方式动态替换-->
+
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <JFXButton fx:id="saveButton" buttonType="RAISED" onAction="#saveButtonAction" prefHeight="27.0" prefWidth="152.0" styleClass="execute-btn" text="保存" textFill="WHITE">
+            <font>
+                <Font name="Courier New Bold" size="16.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+    </HBox>
+</VBox>

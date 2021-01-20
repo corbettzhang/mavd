@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="root" onMouseDragged="#rootMouseDragged" onMousePressed="#rootMousePressed" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.monkeyapp.mavd.controller.ListController">
+    <HBox>
+        <JFXButton fx:id="treeTableViewAdd" buttonType="RAISED" focusTraversable="false" prefHeight="30.0" prefWidth="50.0" ripplerFill="WHITE" style="-fx-background-color: rgb(75,75,75);" text="+" textFill="WHITE">
+            <font>
+                <Font name="Yuanti SC Bold" size="13.0" />
+            </font>
+            <HBox.margin>
+                <Insets bottom="4.0" left="10.0" right="10.0" top="6.0" />
+            </HBox.margin>
+        </JFXButton>
+        <JFXButton fx:id="treeTableViewRemove" buttonType="RAISED" focusTraversable="false" prefHeight="30.0" prefWidth="50.0" ripplerFill="WHITE" style="-fx-background-color: rgb(75,75,75);" text="-" textFill="WHITE">
+            <font>
+                <Font name="Yuanti SC Bold" size="13.0" />
+            </font>
+         <HBox.margin>
+            <Insets bottom="4.0" left="10.0" right="10.0" top="6.0" />
+         </HBox.margin>
+        </JFXButton>
+        <JFXTextField fx:id="searchField" focusColor="WHITE" promptText="   搜索 . . ." style="-fx-border-color: #fff;" unFocusColor="WHITE">
+            <font>
+                <Font name="Yuanti SC Light" size="13.0" />
+            </font>
+         <HBox.margin>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </HBox.margin>
+        </JFXTextField>
+        <VBox.margin>
+            <Insets />
+        </VBox.margin>
+    </HBox>
+    <JFXTreeTableView fx:id="editableTreeTableView" editable="true" onContextMenuRequested="#treeTableViewContextMenuRequested" style="-fx-background-radius: 7px;" VBox.vgrow="ALWAYS">
+        <columns>
+            <JFXTreeTableColumn fx:id="idColumn" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="序号" />
+            <JFXTreeTableColumn fx:id="urlColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="视频网址" />
+            <JFXTreeTableColumn fx:id="titleColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="标题" />
+            <JFXTreeTableColumn fx:id="tagColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="标签" />
+            <JFXTreeTableColumn fx:id="typeColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="类型" />
+            <JFXTreeTableColumn fx:id="descriptionColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="描述" />
+            <JFXTreeTableColumn fx:id="statusColumn" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0" resizable="false" text="状态" />
+        </columns>
+        <VBox.margin>
+            <Insets left="5.0" right="5.0" />
+        </VBox.margin>
+        <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+    </JFXTreeTableView>
+    <HBox>
+        <VBox.margin>
+            <Insets />
+        </VBox.margin>
+        <StackPane HBox.hgrow="ALWAYS">
+            <StackPane maxWidth="200" StackPane.alignment="CENTER_RIGHT" />
+        </StackPane>
+        <Label alignment="CENTER" text="任务数">
+            <font>
+                <Font name="Yuanti SC Bold" size="13.0" />
+            </font>
+            <HBox.margin>
+                <Insets right="5.0" />
+            </HBox.margin>
+        </Label>
+        <Label fx:id="totalLabel" alignment="CENTER" text="10">
+            <font>
+                <Font name="Yuanti SC Bold" size="13.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" text="队列中">
+            <font>
+                <Font name="Yuanti SC Bold" size="13.0" />
+            </font>
+            <HBox.margin>
+                <Insets left="10.0" right="5.0" />
+            </HBox.margin>
+        </Label>
+        <Label fx:id="activeLabel" alignment="CENTER" text="10" textFill="#f0af32">
+            <font>
+                <Font name="Yuanti SC Bold" size="13.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" text="已完成">
+            <font>
+                <Font name="Yuanti SC Bold" size="13.0" />
+            </font>
+            <HBox.margin>
+                <Insets left="10.0" right="5.0" />
+            </HBox.margin>
+        </Label>
+        <Label fx:id="completedLabel" alignment="CENTER" text="10" textFill="#03da03">
+            <font>
+                <Font name="Yuanti SC Bold" size="13.0" />
+            </font>
+            <HBox.margin>
+                <Insets right="10.0" />
+            </HBox.margin>
+        </Label>
+    </HBox>
+</VBox>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.monkeyapp</groupId>
+    <artifactId>MAVD</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.release>1.8</maven.compiler.release>
+        <javafx.version>1.8</javafx.version>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+    </properties>
+
+    <dependencies>
+
+        <!--jfoenix是一个javaFX扩展，fontawesomefx是一个javaFX图标插件-->
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>8.0.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.16</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>7.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.xmlrpc/xmlrpc-common -->
+        <dependency>
+            <groupId>org.apache.xmlrpc</groupId>
+            <artifactId>xmlrpc-common</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.xmlrpc/xmlrpc-client -->
+        <dependency>
+            <groupId>org.apache.xmlrpc</groupId>
+            <artifactId>xmlrpc-client</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.github.biezhi/webp-io webp转换工具-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.github.biezhi</groupId>-->
+        <!--            <artifactId>webp-io</artifactId>-->
+        <!--            <version>0.0.5</version>-->
+        <!--        </dependency>-->
+
+        <!-- 用于转换xml和java实体类-->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>3.0.0</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!--适用于大多数操作系统的快捷键、鼠标监听 https://github.com/kwhat/jnativehook-->
+        <dependency>
+            <groupId>com.1stleg</groupId>
+            <artifactId>jnativehook</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+        <!--sqlite数据库-->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.27.2.1</version>
+        </dependency>
+
+        <!-- mac上的菜单库 https://github.com/corbettzhang/NSMenuFX-->
+        <dependency>
+            <groupId>de.codecentric.centerdevice</groupId>
+            <artifactId>centerdevice-nsmenufx</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>
+        </dependency>
+
+        <!--javafx图标库 https://kordamp.org/-->
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.sun.jna/jna -->
+        <!--mac上通知中心依赖 https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.6.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna-platform -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.6.0</version>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <properties>
+                <env>windows</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>macos</id>
+            <properties>
+                <env>macos</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <properties>
+                <env>linux</env>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>mavd</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>env/**</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/env/${env}</directory>
+                <targetPath>${project.build.outputDirectory}</targetPath>
+                <!--打包zip文件时，filtering设置为false,否则会导致zip包损坏-->
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <includes>
+                    <include>app.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <targetPath>${project.build.testOutputDirectory}</targetPath>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.8.3</version>
+                <configuration>
+
+                    <!-- 启动类 -->
+                    <mainClass>cn.monkeyapp.mavd.Main</mainClass>
+                    <!-- 运行文件名 -->
+                    <appName>${project.build.finalName}</appName>
+                    <!-- 菜单 -->
+                    <needMenu>true</needMenu>
+                    <!-- 桌面图标 -->
+                    <needShortcut>true</needShortcut>
+                    <!-- 公司名称 -->
+                    <vendor>monkeyapp.cn</vendor>
+                    <!-- 输出详细构建信息 -->
+                    <verbose>true</verbose>
+
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
