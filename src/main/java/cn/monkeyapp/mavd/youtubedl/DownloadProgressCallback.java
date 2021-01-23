@@ -1,6 +1,8 @@
 package cn.monkeyapp.mavd.youtubedl;
 
 /**
+ * download信息回调
+ *
  * @author Corbett Zhang
  */
 public interface DownloadProgressCallback {
@@ -13,11 +15,12 @@ public interface DownloadProgressCallback {
      */
     void onProgressUpdate(float progress, long etaInSeconds);
 
-//    /**
-//     * 整行输出信息
-//     * @param line
-//     */
-//    void onProgressUpdate(String line);
+    /**
+     * 整行输出信息
+     *
+     * @param line
+     */
+    void onProgressUpdate(String line);
 
 
 }

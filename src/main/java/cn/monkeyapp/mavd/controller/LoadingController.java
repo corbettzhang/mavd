@@ -175,10 +175,6 @@ public class LoadingController extends AbstractController implements Initializab
             OpenBrowserUtils.openUrl(openBrowserUrl);
         } else {
 
-            if (!LibraryHelper.isDownloaded) {
-                return;
-            }
-
             rotateTransition1 = new RotateTransition(Duration.seconds(2), img1);
             rotateTransition2 = new RotateTransition(Duration.seconds(2), img2);
             rotateTransition3 = new RotateTransition(Duration.seconds(2), img3);
@@ -428,6 +424,10 @@ public class LoadingController extends AbstractController implements Initializab
                     public void onProgressUpdate(float progress, long etaInSeconds) {
                         updateMessage(String.format("剩余时间：%s s 已下载 %s", etaInSeconds, progress + " %"));
                     }
+
+                    @Override
+                    public void onProgressUpdate(String line) {
+                    }
                 });
 
                 // 转换视频格式
@@ -436,6 +436,10 @@ public class LoadingController extends AbstractController implements Initializab
                         @Override
                         public void onProgressUpdate(float progress, long etaInSeconds) {
                             updateMessage(String.format("剩余时间：%s s 已下载 %s", etaInSeconds, progress + " %"));
+                        }
+
+                        @Override
+                        public void onProgressUpdate(String line) {
                         }
                     });
                 }
@@ -454,7 +458,16 @@ public class LoadingController extends AbstractController implements Initializab
                     // TODO 合并双字幕
                 } else if (content.getHasSubtitle() == 1) {  // 合并中文字幕
                     if (StringUtils.isNotEmptyOrNull(content.getSubtitlePath_CN())) {
-                        execute((progress, etaInSeconds) -> updateMessage(String.format("剩余时间：%s s 已下载 %s", etaInSeconds, progress + " %")), content.getSubtitlePath_CN());
+                        execute(new DownloadProgressCallback() {
+                            @Override
+                            public void onProgressUpdate(float progress, long etaInSeconds) {
+                                updateMessage(String.format("剩余时间：%s s 已下载 %s", etaInSeconds, progress + " %"));
+                            }
+
+                            @Override
+                            public void onProgressUpdate(String line) {
+                            }
+                        }, content.getSubtitlePath_CN());
                     }
                 }
                 return true;

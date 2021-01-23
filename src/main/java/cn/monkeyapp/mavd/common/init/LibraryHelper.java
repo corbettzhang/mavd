@@ -4,20 +4,28 @@ import cn.monkeyapp.mavd.Main;
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
-import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
 import cn.monkeyapp.mavd.service.XmlService;
 import cn.monkeyapp.mavd.service.impl.XmlServiceImpl;
 import cn.monkeyapp.mavd.util.FileUtils;
 import cn.monkeyapp.mavd.util.IOUtils;
-import javafx.concurrent.Task;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFileAttributeView;
+import java.nio.file.attribute.PosixFileAttributes;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.EnumSet;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.nio.file.attribute.PosixFilePermission.*;
 
 /**
  * 初始化以及依赖库下载
@@ -29,18 +37,11 @@ public class LibraryHelper {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     /**
-     * 下载依赖完成后该值为true，在执行下载任务时，如果该值为false则下载任务无法进行
-     *
-     * @see DownloadHelper#doDownload
-     */
-    public static volatile boolean isDownloaded = false;
-
-    /**
      * 初始化基础数据
      */
     public static void initialize() {
         // jar文件的绝对路径
-        File file = new File(Properties.USER_LIB);
+        File file = new File(Properties.MAVD_LIB);
         // Copy Jar内的Config.xml文件到Jar外，便于存取配置信息
         createXmlFile(file);
         // 创建lib文件
@@ -51,8 +52,6 @@ public class LibraryHelper {
         createDbFile();
         // 创建视频文件存储目录
         createVideoInfo();
-        // 如果不存在插件则去下载插件
-//        downloadLibrary();
 
     }
 
@@ -73,6 +72,7 @@ public class LibraryHelper {
                 FileUtils.copy(libZip, lib);
                 IOUtils.unzip(lib.getAbsolutePath(), configFile.getAbsolutePath());
                 lib.delete();
+                recursiveAuthorization(file.getAbsolutePath());
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
             }
@@ -171,22 +171,61 @@ public class LibraryHelper {
         LOGGER.log(Level.INFO, String.format("完成创建[monkey-tools.db]数据库文件，%s", dbFile.getAbsolutePath()));
     }
 
-    private static void downloadLibrary() {
-        Task<Boolean> progressTask = new Task<Boolean>() {
-            @Override
-            protected Boolean call() {
-                return DownloadHelper.doDownload();
+    /**
+     * 递归读取文件夹下的文件并授予权限
+     *
+     * @param path
+     */
+    public static void recursiveAuthorization(String path) {
+        File file = new File(path);
+        // 如果是文件夹，则需要递归处理
+        if (file.exists() && file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (File currentFile : files) {
+                if (currentFile.isDirectory()) {
+                    recursiveAuthorization(currentFile.getPath());
+                } else {
+                    updatePermission(currentFile.getAbsolutePath());
+                }
             }
-        };
-        progressTask.setOnSucceeded(event -> {
-            try {
-                isDownloaded = progressTask.get();
-            } catch (InterruptedException | ExecutionException e) {
-                isDownloaded = false;
-                LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            }
-        });
-        progressTask.setOnFailed((e -> LOGGER.log(Level.SEVERE, e.getSource().getMessage(), e)));
-        ThreadPoolManager.getInstance().addThreadExecutor(progressTask);
+        } else {
+            updatePermission(file.getAbsolutePath());
+        }
     }
+
+    public static void readPermissions(PosixFileAttributeView posixView) {
+        try {
+            PosixFileAttributes attribs;
+            attribs = posixView.readAttributes();
+            Set<PosixFilePermission> permissions = attribs.permissions();
+            // 将posix文件权限集转换为rwxrwxrwx形式
+            String rwxFormPermissions = PosixFilePermissions.toString(permissions);
+            LOGGER.log(Level.INFO, rwxFormPermissions);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
+
+    public static void updatePermissions(PosixFileAttributeView posixView) {
+        try {
+            Set<PosixFilePermission> permissions = EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, GROUP_READ, GROUP_WRITE);
+            posixView.setPermissions(permissions);
+            System.out.println("Permissions set successfully.");
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
+
+    public static void updatePermission(String s) {
+        Path path = Paths.get(s);
+        PosixFileAttributeView posixView = Files.getFileAttributeView(path, PosixFileAttributeView.class);
+        if (posixView == null) {
+            System.out.format("POSIX attribute view  is not  supported%n.");
+            return;
+        }
+        readPermissions(posixView);
+        updatePermissions(posixView);
+        readPermissions(posixView);
+    }
+
 }

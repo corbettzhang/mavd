@@ -19,7 +19,7 @@ public class Properties {
      * 用于生成临时目录，日志文件等
      * </b>
      */
-    public static final String USER_LIB = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    public static final String MAVD_LIB = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
     /**
      * 依赖库路径
