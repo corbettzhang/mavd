@@ -4,7 +4,6 @@ import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.controller.MainController;
-import cn.monkeyapp.mavd.controller.PreferenceController;
 import cn.monkeyapp.mavd.entity.Config;
 import cn.monkeyapp.mavd.util.OpenBrowserUtils;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
@@ -13,6 +12,7 @@ import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -58,20 +58,20 @@ public class MonkeyAppSystemTray {
     private void doEnableTray(Stage stage, MainController mainController) {
         PopupMenu popupMenu = new PopupMenu();
 
-        MenuItem openItem = new MenuItem("打开主界面");
+        MenuItem openItem = new MenuItem("打开主界面", new MenuShortcut(KeyEvent.VK_R, false));
         openItem.addActionListener(e -> Platform.runLater(() -> {
             final Stage loadStage = mainController.loadStage(stage, MainController.class.getName());
             loadStage.show();
             loadStage.toFront();
         }));
 
-        MenuItem settingItem = new MenuItem("偏好设置");
-        settingItem.addActionListener(e -> Platform.runLater(() -> {
-            final Stage preferenceStage = new PreferenceController().loadStage(new Stage(), Properties.PREFERENCE_FXML_URL);
-            preferenceStage.setResizable(false);
-            preferenceStage.show();
-            preferenceStage.toFront();
-        }));
+//        MenuItem settingItem = new MenuItem("偏好设置");
+//        settingItem.addActionListener(e -> Platform.runLater(() -> {
+//            final Stage preferenceStage = new PreferenceController().loadStage(new Stage(), Properties.PREFERENCE_FXML_URL);
+//            preferenceStage.setResizable(false);
+//            preferenceStage.show();
+//            preferenceStage.toFront();
+//        }));
 
         MenuItem openSiteItem = new MenuItem("打开网站");
         openSiteItem.addActionListener(e -> OpenBrowserUtils.openUrl(((Config) LocalCache.getInstance().get(Properties.CONFIG_KEY)).getWebSite()));
@@ -83,8 +83,8 @@ public class MonkeyAppSystemTray {
         });
 
         popupMenu.add(openItem);
-        popupMenu.addSeparator();
-        popupMenu.add(settingItem);
+//        popupMenu.addSeparator();
+//        popupMenu.add(settingItem);
         popupMenu.add(openSiteItem);
         popupMenu.addSeparator();
         popupMenu.add(quitItem);

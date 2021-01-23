@@ -1,8 +1,6 @@
 package cn.monkeyapp.mavd.controller;
 
 import cn.monkeyapp.mavd.common.manage.LogManager;
-import cn.monkeyapp.mavd.service.SqliteService;
-import cn.monkeyapp.mavd.service.impl.SqliteServiceImpl;
 import cn.monkeyapp.mavd.util.FileUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +18,6 @@ import java.util.logging.Logger;
 public class AboutController extends AbstractController implements Initializable {
 
     private static final Logger LOGGER = LogManager.getLogger(ListController.class);
-    private static SqliteService sqliteService = new SqliteServiceImpl();
 
     @FXML
     private Label versionLabel;
@@ -30,7 +27,10 @@ public class AboutController extends AbstractController implements Initializable
     @Override
     public Stage loadStage(Stage primaryStage, String listFxmlUrl) {
         super.loadingStage(primaryStage, listFxmlUrl, this);
-        primaryStage.setOnCloseRequest(event -> this.close(getClass().getName()));
+        primaryStage.setOnCloseRequest(event -> {
+            this.close(getClass().getName());
+            this.removeStage(getClass().getName());
+        });
         return primaryStage;
     }
 
@@ -42,6 +42,6 @@ public class AboutController extends AbstractController implements Initializable
 
     @Override
     protected String stageTitle() {
-        return "about";
+        return "关于";
     }
 }

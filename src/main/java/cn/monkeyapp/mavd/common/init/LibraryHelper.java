@@ -60,23 +60,23 @@ public class LibraryHelper {
         if (!configFile.exists()) {
             final boolean mkdirs = configFile.mkdirs();
             LOGGER.log(Level.INFO, String.format("创建目录[lib]，%s", mkdirs));
-        }
-        LocalCache.getInstance().add(configFile.getAbsolutePath(), Properties.LIB_KEY);
-
-        final File lib = new File(file.getParent(), "lib.zip");
-        if (!lib.exists()) {
+            final File lib = new File(file.getParent(), "lib.zip");
             try {
-                lib.createNewFile();
+                if (!lib.exists()) {
+                    lib.createNewFile();
+                }
                 InputStream libZip = ClassLoader.getSystemClassLoader().getResourceAsStream("lib.zip");
                 assert libZip != null;
                 FileUtils.copy(libZip, lib);
                 IOUtils.unzip(lib.getAbsolutePath(), configFile.getAbsolutePath());
                 lib.delete();
-                recursiveAuthorization(file.getAbsolutePath());
+                recursiveAuthorization(configFile.getAbsolutePath());
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
             }
         }
+        LocalCache.getInstance().add(configFile.getAbsolutePath(), Properties.LIB_KEY);
+
     }
 
     private static void createVideoInfo() {

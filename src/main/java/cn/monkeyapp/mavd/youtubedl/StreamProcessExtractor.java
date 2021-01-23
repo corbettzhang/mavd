@@ -12,8 +12,8 @@ public class StreamProcessExtractor extends Thread {
     private static final String GROUP_PERCENT = "percent";
     private static final String GROUP_MINUTES = "minutes";
     private static final String GROUP_SECONDS = "seconds";
-    private InputStream stream;
-    private StringBuffer buffer;
+    private final InputStream stream;
+    private final StringBuffer buffer;
     private final DownloadProgressCallback callback;
 
     private Pattern p = Pattern.compile("\\[download\\]\\s+(?<percent>\\d+\\.\\d)% .* ETA (?<minutes>\\d+):(?<seconds>\\d+)");

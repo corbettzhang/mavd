@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXButton?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.monkeyapp.mavd.controller.NewController">
+   <children>
+      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="50.0" prefHeight="30.0" prefWidth="80.0" text="网址" />
+      <JFXTextField fx:id="urlTextField" layoutX="135.0" layoutY="52.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="100.0" prefHeight="30.0" prefWidth="80.0" text="标题" />
+      <JFXTextField fx:id="titleTextField" layoutX="135.0" layoutY="102.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="150.0" prefHeight="30.0" prefWidth="80.0" text="标签" />
+      <JFXTextField fx:id="tagTextField" layoutX="135.0" layoutY="152.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="200.0" prefHeight="30.0" prefWidth="80.0" text="类型" />
+      <JFXTextField fx:id="typeTextField" layoutX="135.0" layoutY="202.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="250.0" prefHeight="30.0" prefWidth="80.0" text="描述" />
+      <JFXTextField fx:id="descriptionTextField" layoutX="135.0" layoutY="252.0" />
+      <JFXButton fx:id="createButton" buttonType="RAISED" layoutX="176.0" layoutY="382.0" mnemonicParsing="false" onAction="#createButtonOnAction" ripplerFill="#c3bebe" text="创建任务" />
+   </children>
+</Pane>

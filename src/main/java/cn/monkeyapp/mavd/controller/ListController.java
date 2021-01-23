@@ -259,7 +259,7 @@ public class ListController extends AbstractController implements Initializable 
                 .addListener(setupSearchField(editableTreeTableView));
     }
 
-    private static Map<String, Tooltip> tooltipMap = new ConcurrentHashMap<>();
+    private static final Map<String, Tooltip> tooltipMap = new ConcurrentHashMap<>();
 
     private boolean updateTaskInfo(Task task, String field) {
         try {

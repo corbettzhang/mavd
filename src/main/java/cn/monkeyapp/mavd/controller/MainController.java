@@ -4,9 +4,7 @@ import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.entity.Session;
-import cn.monkeyapp.mavd.service.SqliteService;
 import cn.monkeyapp.mavd.service.XmlService;
-import cn.monkeyapp.mavd.service.impl.SqliteServiceImpl;
 import cn.monkeyapp.mavd.service.impl.XmlServiceImpl;
 import cn.monkeyapp.mavd.util.ObjectUtils;
 import com.jfoenix.controls.JFXHamburger;
@@ -21,9 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -253,17 +248,6 @@ public class MainController extends AbstractController implements Initializable 
         mainRightVBox.getChildren().set(1, settingVBox);
         VBox.setVgrow(settingVBox, Priority.ALWAYS);
 
-    }
-
-    @FXML
-    private void rootKeyPressed(KeyEvent keyEvent) {
-        // 当按下键盘组合键时触发
-        KeyCombination ctrlB = KeyCodeCombination.keyCombination("Alt+B");
-        if (ctrlB.match(keyEvent)) {
-            final Stage stage = new PreferenceController().loadStage(new Stage(), Properties.PREFERENCE_FXML_URL);
-            stage.show();
-            stage.toFront();
-        }
     }
 
     @Override

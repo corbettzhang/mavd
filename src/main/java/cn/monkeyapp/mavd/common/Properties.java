@@ -77,5 +77,6 @@ public class Properties {
     public static final String USER_FXML_URL = "fxml/user.fxml";
     public static final String PREFERENCE_FXML_URL = "fxml/preference.fxml";
     public static final String ABOUT_FXML_URL = "fxml/about.fxml";
+    public static final String NEW_FXML_URL = "fxml/new.fxml";
 
 }
