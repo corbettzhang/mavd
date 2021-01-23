@@ -4,7 +4,7 @@ import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
-import cn.monkeyapp.mavd.common.stage.GlobalKeyListener;
+import cn.monkeyapp.mavd.common.GlobalKeyListener;
 import cn.monkeyapp.mavd.entity.Preference;
 import cn.monkeyapp.mavd.service.XmlService;
 import cn.monkeyapp.mavd.service.impl.XmlServiceImpl;

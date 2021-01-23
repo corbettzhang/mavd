@@ -3,7 +3,7 @@ package cn.monkeyapp.mavd.controller;
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
-import cn.monkeyapp.mavd.common.stage.MonkeyAppSystemTray;
+import cn.monkeyapp.mavd.common.MySystemTray;
 import cn.monkeyapp.mavd.entity.Config;
 import cn.monkeyapp.mavd.entity.Session;
 import javafx.fxml.FXML;
@@ -78,7 +78,7 @@ public class UserController extends AbstractController implements Initializable 
 
     @FXML
     private void logoutLabelMouseClicked(MouseEvent mouseEvent) {
-        SwingUtilities.invokeLater(MonkeyAppSystemTray::destroyTray);
+        SwingUtilities.invokeLater(MySystemTray::destroyTray);
         showStage(LoginController.class.getName());
     }
 

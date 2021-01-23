@@ -2,7 +2,7 @@ package cn.monkeyapp.mavd.service.impl;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
-import cn.monkeyapp.mavd.common.stage.MonkeyAppSystemTray;
+import cn.monkeyapp.mavd.common.MySystemTray;
 import cn.monkeyapp.mavd.entity.Preference;
 import cn.monkeyapp.mavd.service.NotificationService;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
@@ -24,7 +24,7 @@ public class NotificationServiceImpl implements NotificationService {
         final Preference preference = (Preference) LocalCache.getInstance().get(Properties.PREFERENCE_KEY);
         if (preference.isEnableNotification()) {
             if (OsInfoUtils.isWindows()) {
-                MonkeyAppSystemTray.sendNotification(title, text, MessageType.INFO);
+                MySystemTray.sendNotification(title, text, MessageType.INFO);
             }
             if (OsInfoUtils.isMacOS0()) {
                 NsUserNotificationsBridge.INSTANCE.sendNotification(title, subtitle, text, timeoffset);

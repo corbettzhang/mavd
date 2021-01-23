@@ -3,22 +3,24 @@ package cn.monkeyapp.mavd.controller;
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
-import cn.monkeyapp.mavd.common.stage.MonkeyAppAlert;
 import cn.monkeyapp.mavd.entity.Config;
 import cn.monkeyapp.mavd.service.XmlService;
 import cn.monkeyapp.mavd.service.impl.XmlServiceImpl;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.animation.alert.JFXAlertAnimation;
+import com.jfoenix.controls.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
@@ -136,7 +138,20 @@ public class SettingController extends AbstractController implements Initializab
         xmlService.saveConfig(config);
         LocalCache.getInstance().add(config, Properties.CONFIG_KEY);
         LOGGER.log(Level.INFO, "更新配置信息成功，" + config.toString());
-        MonkeyAppAlert.showAlert("Successful. ", ((JFXButton) actionEvent.getSource()).getScene().getWindow());
+        showAlert("配置信息已更新. ", ((JFXButton) actionEvent.getSource()).getScene().getWindow());
+    }
+
+    public static void showAlert(String content, Window window) {
+        Platform.runLater(() -> {
+            JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setBody(new Label(content));
+            JFXAlert<Void> alert = new JFXAlert<>(window);
+            alert.setOverlayClose(true);
+            alert.setAnimation(JFXAlertAnimation.CENTER_ANIMATION);
+            alert.setContent(layout);
+            alert.initModality(Modality.NONE);
+            alert.show();
+        });
     }
 
     public void setting3HBoxMouseClicked(MouseEvent mouseEvent) {

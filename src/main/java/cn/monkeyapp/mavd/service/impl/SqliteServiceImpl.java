@@ -2,7 +2,7 @@ package cn.monkeyapp.mavd.service.impl;
 
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.sqlite.SqliteHandler;
-import cn.monkeyapp.mavd.common.stage.MonkeyAppSystemTray;
+import cn.monkeyapp.mavd.common.MySystemTray;
 import cn.monkeyapp.mavd.entity.Task;
 import cn.monkeyapp.mavd.service.SqliteService;
 
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class SqliteServiceImpl implements SqliteService {
 
-    private static final Logger LOGGER = LogManager.getLogger(MonkeyAppSystemTray.class);
+    private static final Logger LOGGER = LogManager.getLogger(MySystemTray.class);
 
     @Override
     public boolean save(Task task) {

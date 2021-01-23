@@ -4,8 +4,8 @@ import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
-import cn.monkeyapp.mavd.common.stage.MonkeyAppSystemTray;
-import cn.monkeyapp.mavd.common.stage.MyTimerTask;
+import cn.monkeyapp.mavd.common.MySystemTray;
+import cn.monkeyapp.mavd.common.MyTimerTask;
 import cn.monkeyapp.mavd.entity.Config;
 import cn.monkeyapp.mavd.entity.Session;
 import cn.monkeyapp.mavd.service.LoginService;
@@ -217,7 +217,7 @@ public class LoginController extends AbstractController implements Initializable
             Platform.runLater(() -> {
                 final MainController mainController = new MainController();
                 Stage stage = mainController.loadStage(new Stage(), Properties.MAIN_FXML_URL);
-                MonkeyAppSystemTray.getInstance().enableTray(stage, mainController);
+                MySystemTray.getInstance().enableTray(stage, mainController);
                 stage.show();
                 stage.toFront();
             });
