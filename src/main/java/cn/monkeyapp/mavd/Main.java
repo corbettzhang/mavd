@@ -23,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        //适用于Mac OS的全局菜单
+        //适用于MacOS的全局菜单
         if (OsInfoUtils.isMacOS0()) {
             GlobalMenuBar.loadGlobalMenuBar();
         }

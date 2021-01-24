@@ -14,11 +14,11 @@ public class StreamProcessExtractor extends Thread {
     private static final String GROUP_SECONDS = "seconds";
     private final InputStream stream;
     private final StringBuffer buffer;
-    private final DownloadProgressCallback callback;
+    private final ProgressCallback callback;
 
     private Pattern p = Pattern.compile("\\[download\\]\\s+(?<percent>\\d+\\.\\d)% .* ETA (?<minutes>\\d+):(?<seconds>\\d+)");
 
-    public StreamProcessExtractor(StringBuffer buffer, InputStream stream, DownloadProgressCallback callback) {
+    public StreamProcessExtractor(StringBuffer buffer, InputStream stream, ProgressCallback callback) {
         this.stream = stream;
         this.buffer = buffer;
         this.callback = callback;

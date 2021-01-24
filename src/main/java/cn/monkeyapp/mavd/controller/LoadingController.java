@@ -2,7 +2,6 @@ package cn.monkeyapp.mavd.controller;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
-import cn.monkeyapp.mavd.common.init.LibraryHelper;
 import cn.monkeyapp.mavd.common.manage.ImageConverter;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
@@ -14,7 +13,7 @@ import cn.monkeyapp.mavd.service.SqliteService;
 import cn.monkeyapp.mavd.service.impl.NotificationServiceImpl;
 import cn.monkeyapp.mavd.service.impl.SqliteServiceImpl;
 import cn.monkeyapp.mavd.util.*;
-import cn.monkeyapp.mavd.youtubedl.DownloadProgressCallback;
+import cn.monkeyapp.mavd.youtubedl.ProgressCallback;
 import cn.monkeyapp.mavd.youtubedl.YoutubeDL;
 import cn.monkeyapp.mavd.youtubedl.YoutubeDLRequest;
 import cn.monkeyapp.mavd.youtubedl.YoutubeDLResponse;
@@ -419,7 +418,7 @@ public class LoadingController extends AbstractController implements Initializab
                     }
                 }
 
-                downloadVideo(new DownloadProgressCallback() {
+                downloadVideo(new ProgressCallback() {
                     @Override
                     public void onProgressUpdate(float progress, long etaInSeconds) {
                         updateMessage(String.format("剩余时间：%s s 已下载 %s", etaInSeconds, progress + " %"));
@@ -432,7 +431,7 @@ public class LoadingController extends AbstractController implements Initializab
 
                 // 转换视频格式
                 if (!content.getIsMp4()) {
-                    convertToMp4(content, new DownloadProgressCallback() {
+                    convertToMp4(content, new ProgressCallback() {
                         @Override
                         public void onProgressUpdate(float progress, long etaInSeconds) {
                             updateMessage(String.format("剩余时间：%s s 已下载 %s", etaInSeconds, progress + " %"));
@@ -458,7 +457,7 @@ public class LoadingController extends AbstractController implements Initializab
                     // TODO 合并双字幕
                 } else if (content.getHasSubtitle() == 1) {  // 合并中文字幕
                     if (StringUtils.isNotEmptyOrNull(content.getSubtitlePath_CN())) {
-                        execute(new DownloadProgressCallback() {
+                        execute(new ProgressCallback() {
                             @Override
                             public void onProgressUpdate(float progress, long etaInSeconds) {
                                 updateMessage(String.format("剩余时间：%s s 已下载 %s", etaInSeconds, progress + " %"));
@@ -501,7 +500,7 @@ public class LoadingController extends AbstractController implements Initializab
         };
     }
 
-    private void downloadVideo(DownloadProgressCallback callback) throws Exception {
+    private void downloadVideo(ProgressCallback callback) throws Exception {
 
         final Preference preference = (Preference) LocalCache.getInstance().get(Properties.PREFERENCE_KEY);
 
@@ -558,7 +557,7 @@ public class LoadingController extends AbstractController implements Initializab
      * @param content
      * @param callback
      */
-    private void convertToMp4(Content content, DownloadProgressCallback callback) {
+    private void convertToMp4(Content content, ProgressCallback callback) {
         content.setVideoName(content.getVideoName().substring(0, content.getVideoName().indexOf('.') + 1) + "mp4"); // 合并后的视频文件名称
         final String s = LocalCache.getInstance().get(Properties.DATA_KEY) + StringUtils.stringToPath(content.getId()) + content.getVideoName();
 
@@ -584,7 +583,7 @@ public class LoadingController extends AbstractController implements Initializab
      * @param callback 回调
      * @throws IOException IO异常
      */
-    public void execute(DownloadProgressCallback callback, String subtitle) throws IOException {
+    public void execute(ProgressCallback callback, String subtitle) throws IOException {
         content.setVideoName1(content.getVideoName() + "sub"); // 合并后的视频文件名称
         content.setVideoPath1(LocalCache.getInstance().get(Properties.DATA_KEY) + StringUtils.stringToPath(content.getId()) + content.getVideoName1());
         String command =
@@ -600,7 +599,7 @@ public class LoadingController extends AbstractController implements Initializab
         exeCmd(command, callback);
     }
 
-    public void exeCmd(String shell, DownloadProgressCallback callback) throws IOException {
+    public void exeCmd(String shell, ProgressCallback callback) throws IOException {
         BufferedReader br = null;
         //获取代表正在运行的Java虚拟机的名称。
         String name = ManagementFactory.getRuntimeMXBean().getName();
@@ -740,9 +739,9 @@ public class LoadingController extends AbstractController implements Initializab
     static class ProcessStreamGobbler implements Runnable {
 
         BufferedReader br;
-        DownloadProgressCallback callback;
+        ProgressCallback callback;
 
-        public ProcessStreamGobbler(BufferedReader br, DownloadProgressCallback callback) {
+        public ProcessStreamGobbler(BufferedReader br, ProgressCallback callback) {
             this.callback = callback;
             this.br = br;
         }

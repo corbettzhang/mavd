@@ -28,7 +28,6 @@ import java.util.Map;
  */
 public class YoutubeDL {
 
-
     /**
      * 将可执行文件名称附加到命令
      *
@@ -64,7 +63,7 @@ public class YoutubeDL {
      * @return 响应对象
      * @throws MonkeyException
      */
-    public static YoutubeDLResponse execute(YoutubeDLRequest request, DownloadProgressCallback callback) throws MonkeyException {
+    public static YoutubeDLResponse execute(YoutubeDLRequest request, ProgressCallback callback) throws MonkeyException {
 
         String command = buildCommand(request.buildOptions());
         String directory = request.getDirectory();
