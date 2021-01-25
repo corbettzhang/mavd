@@ -4,6 +4,7 @@ import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.controller.AboutController;
 import cn.monkeyapp.mavd.controller.MainController;
+import cn.monkeyapp.mavd.controller.NewController;
 import cn.monkeyapp.mavd.controller.PreferenceController;
 import cn.monkeyapp.mavd.entity.Config;
 import cn.monkeyapp.mavd.util.OpenBrowserUtils;
@@ -78,7 +79,15 @@ public class MySystemTray {
         popupMenu.add(openItem);
 
         if (OsInfoUtils.isWindows()) {
-            popupMenu.addSeparator();
+
+            MenuItem newMenuItem = new MenuItem("新建");
+            newMenuItem.addActionListener(event -> {
+                final Stage newStage = new NewController().loadStage(new Stage(), Properties.NEW_FXML_URL);
+                newStage.setResizable(false);
+                newStage.show();
+                newStage.toFront();
+            });
+
             MenuItem preferenceMenuItem = new MenuItem("偏好设置");
             preferenceMenuItem.addActionListener(e -> {
                 final Stage preferenceStage = new PreferenceController().loadStage(new Stage(), Properties.PREFERENCE_FXML_URL);
@@ -87,7 +96,7 @@ public class MySystemTray {
                 preferenceStage.toFront();
             });
 
-            MenuItem aboutMenuItem = new MenuItem("关于");
+            MenuItem aboutMenuItem = new MenuItem("关于MAVD");
             aboutMenuItem.addActionListener(event -> {
                 final Stage aboutStage = new AboutController().loadStage(new Stage(), Properties.ABOUT_FXML_URL);
                 aboutStage.setResizable(false);
@@ -99,10 +108,14 @@ public class MySystemTray {
             supportMenuItem.addActionListener(event -> {
                 OpenBrowserUtils.openUrl("https://monkeyapp.cn/contacts");
             });
+
+            popupMenu.addSeparator();
+            popupMenu.add(newMenuItem);
             popupMenu.add(preferenceMenuItem);
             popupMenu.add(aboutMenuItem);
             popupMenu.add(supportMenuItem);
             popupMenu.addSeparator();
+
         }
 
         popupMenu.add(openSiteItem);
