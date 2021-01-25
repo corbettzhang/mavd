@@ -8,6 +8,7 @@ import cn.monkeyapp.mavd.service.XmlService;
 import cn.monkeyapp.mavd.service.impl.XmlServiceImpl;
 import cn.monkeyapp.mavd.util.FileUtils;
 import cn.monkeyapp.mavd.util.IOUtils;
+import cn.monkeyapp.mavd.util.OsInfoUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,7 @@ import java.util.logging.Logger;
 import static java.nio.file.attribute.PosixFilePermission.*;
 
 /**
- * 初始化以及依赖库下载
+ * 初始化帮助类
  *
  * @author Corbett Zhang
  */
@@ -70,7 +71,9 @@ public class LibraryHelper {
                 FileUtils.copy(libZip, lib);
                 IOUtils.unzip(lib.getAbsolutePath(), configFile.getAbsolutePath());
                 lib.delete();
-                recursiveAuthorization(configFile.getAbsolutePath());
+                if (!OsInfoUtils.isWindows()) {
+                    recursiveAuthorization(configFile.getAbsolutePath());
+                }
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
             }

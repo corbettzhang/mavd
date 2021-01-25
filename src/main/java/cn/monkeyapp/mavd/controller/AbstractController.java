@@ -101,6 +101,7 @@ public abstract class AbstractController {
         stageMap.values().forEach(Stage::close);
         stageMap.clear();
         Platform.exit();
+        System.runFinalization();
         System.exit(0);
     }
 
@@ -158,10 +159,7 @@ public abstract class AbstractController {
             scene.getStylesheets().add(cssUrl.toExternalForm());
             stage.setScene(scene);
             stage.getIcons().add(new Image("img/logo.png"));
-
-//            MyMenu.showMenu(stage, controller);
             stage.setTitle(stageTitle());
-
             addStage(key, stage);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);

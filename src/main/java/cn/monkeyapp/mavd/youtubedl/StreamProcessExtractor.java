@@ -6,6 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * 流程过程提取
+ *
  * @author Corbett Zhang
  */
 public class StreamProcessExtractor extends Thread {
@@ -44,7 +46,11 @@ public class StreamProcessExtractor extends Thread {
         }
     }
 
-    // 输出简洁信息
+    /**
+     * 返回解析后的数据
+     *
+     * @param line 行记录
+     */
     private void processOutputConcise(String line) {
         Matcher m = p.matcher(line);
         if (m.matches()) {
@@ -54,7 +60,11 @@ public class StreamProcessExtractor extends Thread {
         }
     }
 
-    // 整行输出
+    /**
+     * 整行输出
+     *
+     * @param line 逐行读取信息
+     */
     private void processOutputLine(String line) {
         callback.onProgressUpdate(line);
     }

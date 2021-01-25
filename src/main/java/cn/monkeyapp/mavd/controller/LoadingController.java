@@ -2,6 +2,7 @@ package cn.monkeyapp.mavd.controller;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
+import cn.monkeyapp.mavd.common.manage.ExecuteHelper;
 import cn.monkeyapp.mavd.common.manage.ImageConverter;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
@@ -47,11 +48,8 @@ import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.management.ManagementFactory;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.*;
@@ -193,6 +191,11 @@ public class LoadingController extends AbstractController implements Initializab
                 startButton.setDisable(true);
                 try {
                     doDownload();
+                    // 请求主窗口获取焦点
+                    final Stage stage = getStage(MainController.class.getName());
+                    if (!stage.isFocused()) {
+                        stage.requestFocus();
+                    }
                 } catch (Exception e) {
                     LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 } finally {
@@ -570,7 +573,7 @@ public class LoadingController extends AbstractController implements Initializab
                         s;
         content.setVideoPath(s);
         try {
-            exeCmd(command, callback);
+            ExecuteHelper.exeCmd(command, callback);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -596,34 +599,9 @@ public class LoadingController extends AbstractController implements Initializab
                         " -y " +   //覆盖输出文件无需提问
                         content.getVideoPath1();
 
-        exeCmd(command, callback);
+        ExecuteHelper.exeCmd(command, callback);
     }
 
-    public void exeCmd(String shell, ProgressCallback callback) throws IOException {
-        BufferedReader br = null;
-        //获取代表正在运行的Java虚拟机的名称。
-        String name = ManagementFactory.getRuntimeMXBean().getName();
-        String pid = name.split("@")[0];
-        try {
-            LOGGER.log(Level.INFO, "Starting to exec{ " + shell + " }. PID is: " + pid);
-            Process process;
-            ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", shell);
-            pb.environment();
-            // 将错误流合并到标准流
-            pb.redirectErrorStream(true);
-            process = pb.start();
-            br = new BufferedReader(new InputStreamReader(process.getInputStream()), 1024);
-            ProcessStreamGobbler localGob = new ProcessStreamGobbler(br, callback);
-            ThreadPoolManager.getInstance().addThreadExecutor(localGob);
-            process.waitFor();
-        } catch (Exception ioe) {
-            LOGGER.log(Level.SEVERE, ioe.getMessage(), ioe);
-        } finally {
-            if (br != null) {
-                br.close();
-            }
-        }
-    }
 
     private void setMessage(String message) {
         detailTextArea.insertText(0, message + "\n");
@@ -736,35 +714,6 @@ public class LoadingController extends AbstractController implements Initializab
         return super.loadingStage(stage, listFxmlUrl, this, this.getClass().getName() + content.getTaskId());
     }
 
-    static class ProcessStreamGobbler implements Runnable {
-
-        BufferedReader br;
-        ProgressCallback callback;
-
-        public ProcessStreamGobbler(BufferedReader br, ProgressCallback callback) {
-            this.callback = callback;
-            this.br = br;
-        }
-
-        @Override
-        public void run() {
-            String line;
-            try {
-                while ((line = br.readLine()) != null) {
-                    progressUpdate(line);
-                }
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void progressUpdate(String line) {
-            System.out.println(line);
-            // TODO
-//            callback.onProgressUpdate(line);
-        }
-    }
 
     @Override
     protected String stageTitle() {
