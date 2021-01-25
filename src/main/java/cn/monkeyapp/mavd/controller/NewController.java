@@ -73,8 +73,6 @@ public class NewController extends AbstractController implements Initializable {
             tagTextField.setText("");
             descriptionTextField.setText("");
             typeTextField.setText("");
-        } else {
-
         }
     }
 }

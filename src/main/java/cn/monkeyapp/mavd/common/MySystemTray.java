@@ -84,21 +84,21 @@ public class MySystemTray {
             MenuItem newMenuItem = new MenuItem("新建");
             newMenuItem.addActionListener(event -> {
                 Platform.runLater(() -> {
-                    StageHelper.showStage(NewController.class.getName(), false, new NewController(), Properties.NEW_FXML_URL);
+                    StageHelper.showStage(false, new NewController(), Properties.NEW_FXML_URL);
                 });
             });
 
             MenuItem preferenceMenuItem = new MenuItem("偏好设置");
             preferenceMenuItem.addActionListener(e -> {
                 Platform.runLater(() -> {
-                    StageHelper.showStage(PreferenceController.class.getName(), false, new PreferenceController(), Properties.PREFERENCE_FXML_URL);
+                    StageHelper.showStage(false, new PreferenceController(), Properties.PREFERENCE_FXML_URL);
                 });
             });
 
             MenuItem aboutMenuItem = new MenuItem("关于MAVD");
             aboutMenuItem.addActionListener(event -> {
                 Platform.runLater(() -> {
-                    StageHelper.showStage(AboutController.class.getName(), false, new AboutController(), Properties.ABOUT_FXML_URL);
+                    StageHelper.showStage(false, new AboutController(), Properties.ABOUT_FXML_URL);
                 });
             });
 

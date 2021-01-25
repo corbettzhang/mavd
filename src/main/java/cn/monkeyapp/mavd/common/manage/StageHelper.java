@@ -88,15 +88,10 @@ public class StageHelper {
     /**
      * 打开指定窗口，其他窗口关闭
      */
-    public static void showStage(String key, boolean resizable, AbstractController controller, String listFxmlUrl) {
-        Stage stage;
+    public static void showStage(boolean resizable, AbstractController controller, String listFxmlUrl) {
         try {
-            if (hasStage(key)) {
-                stage = getStage(key);
-            } else {
-                Method method = controller.getClass().getDeclaredMethod("loadStage");
-                stage = (Stage) method.invoke(controller, new Stage(), listFxmlUrl);
-            }
+            Method method = AbstractController.class.getDeclaredMethod("loadStage");
+            Stage stage = (Stage) method.invoke(controller, new Stage(), listFxmlUrl);
             stage.setResizable(resizable);
             stage.show();
             stage.toFront();
