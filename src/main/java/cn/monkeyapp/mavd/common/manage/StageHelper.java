@@ -20,7 +20,7 @@ public class StageHelper {
 
     private static final Logger LOGGER = LogManager.getLogger(StageHelper.class);
 
-    private static Map<String, Stage> stageMap = new ConcurrentHashMap<>();
+    private static final Map<String, Stage> stageMap = new ConcurrentHashMap<>();
 
     /**
      * 管理所有Stage
@@ -48,8 +48,8 @@ public class StageHelper {
     public static void removeStage(String k) {
         final Map<String, Stage> stringStageMap = stageMap.entrySet().stream()
                 .filter((e) -> e.getKey().contains(k))
-                .collect(Collectors.toMap((e) -> (String) e.getKey(), Map.Entry::getValue));
-        stringStageMap.keySet().forEach(e -> stageMap.remove(e));
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        stringStageMap.keySet().forEach(stageMap::remove);
     }
 
     /**
@@ -90,7 +90,8 @@ public class StageHelper {
      */
     public static void showStage(boolean resizable, AbstractController controller, String listFxmlUrl) {
         try {
-            Method method = AbstractController.class.getDeclaredMethod("loadStage");
+            Method method = AbstractController.class.getDeclaredMethod("loadStage", Stage.class, String.class);
+            method.setAccessible(true);
             Stage stage = (Stage) method.invoke(controller, new Stage(), listFxmlUrl);
             stage.setResizable(resizable);
             stage.show();
