@@ -20,7 +20,7 @@ public class StageHelper {
 
     private static final Logger LOGGER = LogManager.getLogger(StageHelper.class);
 
-    private static final Map<String, Stage> stageMap = new ConcurrentHashMap<>();
+    private static final Map<String, Stage> STAGE_MAP = new ConcurrentHashMap<>();
 
     /**
      * 管理所有Stage
@@ -28,7 +28,7 @@ public class StageHelper {
      * @param stage stage
      */
     public static void addStage(String key, Stage stage) {
-        stageMap.put(key, stage);
+        STAGE_MAP.put(key, stage);
     }
 
     /**
@@ -37,7 +37,7 @@ public class StageHelper {
      * @param key key
      */
     public static Stage getStage(String key) {
-        return stageMap.get(key);
+        return STAGE_MAP.get(key);
     }
 
     /**
@@ -46,10 +46,10 @@ public class StageHelper {
      * @param k key
      */
     public static void removeStage(String k) {
-        final Map<String, Stage> stringStageMap = stageMap.entrySet().stream()
+        final Map<String, Stage> stringStageMap = STAGE_MAP.entrySet().stream()
                 .filter((e) -> e.getKey().contains(k))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        stringStageMap.keySet().forEach(stageMap::remove);
+        stringStageMap.keySet().forEach(STAGE_MAP::remove);
     }
 
     /**
@@ -58,7 +58,7 @@ public class StageHelper {
      * @param k key
      */
     public static boolean hasStage(String k) {
-        return stageMap.containsKey(k);
+        return STAGE_MAP.containsKey(k);
     }
 
     /**
@@ -72,23 +72,24 @@ public class StageHelper {
      * 关闭所有窗口
      */
     public static void closeAll() {
-        stageMap.values().forEach(Stage::close);
+        STAGE_MAP.values().forEach(Stage::close);
     }
 
     /**
      * 打开指定窗口，其他窗口关闭
      */
     public static void showStage(String key) {
-        stageMap.values().forEach(Stage::close);
-        if (stageMap.containsKey(key)) {
-            stageMap.get(key).show();
+        STAGE_MAP.values().forEach(Stage::close);
+        if (STAGE_MAP.containsKey(key)) {
+            STAGE_MAP.get(key).show();
         }
     }
 
     /**
      * 通过反射方式获取stage
-     * @param resizable 是否最大化
-     * @param controller 具体的controller
+     *
+     * @param resizable   是否最大化
+     * @param controller  具体的controller
      * @param listFxmlUrl fxml路径
      */
     public static void showStage(boolean resizable, AbstractController controller, String listFxmlUrl) {
@@ -108,8 +109,8 @@ public class StageHelper {
      * 关闭所有窗口，并退出程序
      */
     public static void exit() {
-        stageMap.values().forEach(Stage::close);
-        stageMap.clear();
+        STAGE_MAP.values().forEach(Stage::close);
+        STAGE_MAP.clear();
         Platform.exit();
         System.runFinalization();
         System.exit(0);

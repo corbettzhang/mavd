@@ -1,5 +1,6 @@
 package cn.monkeyapp.mavd.common;
 
+import cn.monkeyapp.mavd.common.manage.StageHelper;
 import cn.monkeyapp.mavd.controller.AboutController;
 import cn.monkeyapp.mavd.controller.NewController;
 import cn.monkeyapp.mavd.controller.PreferenceController;
@@ -12,7 +13,6 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.stage.Stage;
 
 /**
  * mac系统的全局菜单配置
@@ -39,19 +39,13 @@ public class GlobalMenuBar {
         MenuItem newItem = new MenuItem("新建");
         newItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.META_DOWN, KeyCombination.CONTROL_DOWN));
         newItem.setOnAction(event -> {
-            final Stage stage = new NewController().loadStage(new Stage(), Properties.NEW_FXML_URL);
-            stage.setResizable(false);
-            stage.show();
-            stage.toFront();
+            StageHelper.showStage(false, new NewController(), Properties.NEW_FXML_URL);
         });
 
         MenuItem settingItem = new MenuItem("偏好设置");
         settingItem.setAccelerator(new KeyCodeCombination(KeyCode.P, KeyCombination.META_DOWN, KeyCombination.CONTROL_DOWN));
         settingItem.setOnAction(e -> {
-            final Stage preferenceStage = new PreferenceController().loadStage(new Stage(), Properties.PREFERENCE_FXML_URL);
-            preferenceStage.setResizable(false);
-            preferenceStage.show();
-            preferenceStage.toFront();
+            StageHelper.showStage(false, new PreferenceController(), Properties.PREFERENCE_FXML_URL);
         });
         fileMenu.getItems().addAll(newItem, settingItem, new SeparatorMenuItem(), tk.createCloseWindowMenuItem());
 
@@ -64,10 +58,7 @@ public class GlobalMenuBar {
         Menu helpMenu = new Menu("帮助");
         MenuItem aboutMenuItem = new MenuItem("关于MAVD");
         aboutMenuItem.setOnAction(event -> {
-            final Stage aboutStage = new AboutController().loadStage(new Stage(), Properties.ABOUT_FXML_URL);
-            aboutStage.setResizable(false);
-            aboutStage.show();
-            aboutStage.toFront();
+            StageHelper.showStage(false, new AboutController(), Properties.ABOUT_FXML_URL);
         });
         helpMenu.getItems().add(aboutMenuItem);
         MenuItem supportMenuItem = new MenuItem("意见反馈");

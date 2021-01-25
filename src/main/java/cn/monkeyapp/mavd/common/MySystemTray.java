@@ -1,13 +1,11 @@
 package cn.monkeyapp.mavd.common;
 
-import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.StageHelper;
 import cn.monkeyapp.mavd.controller.AboutController;
 import cn.monkeyapp.mavd.controller.MainController;
 import cn.monkeyapp.mavd.controller.NewController;
 import cn.monkeyapp.mavd.controller.PreferenceController;
-import cn.monkeyapp.mavd.entity.Config;
 import cn.monkeyapp.mavd.util.OpenBrowserUtils;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
 import javafx.application.Platform;
@@ -68,9 +66,6 @@ public class MySystemTray {
             loadStage.toFront();
         }));
 
-        MenuItem openSiteItem = new MenuItem("打开网站");
-        openSiteItem.addActionListener(e -> OpenBrowserUtils.openUrl(((Config) LocalCache.getInstance().get(Properties.CONFIG_KEY)).getWebSite()));
-
         MenuItem quitItem = new MenuItem("退出");
         quitItem.addActionListener(e -> {
             TRAY.remove(trayIcon);
@@ -116,7 +111,6 @@ public class MySystemTray {
 
         }
 
-        popupMenu.add(openSiteItem);
         popupMenu.addSeparator();
         popupMenu.add(quitItem);
 
