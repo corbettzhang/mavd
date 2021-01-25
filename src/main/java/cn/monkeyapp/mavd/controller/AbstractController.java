@@ -1,7 +1,7 @@
 package cn.monkeyapp.mavd.controller;
 
 import cn.monkeyapp.mavd.common.manage.LogManager;
-import javafx.application.Platform;
+import cn.monkeyapp.mavd.common.manage.StageHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,16 +12,12 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  * 抽象的controller类，用于管理生成的所有stage，避免重复导致资源浪费。
- * 每个stage可以看做是一个窗口界面，这里统一管理便于界面的切换等操作
  *
  * @author Corbett Zhang
  */
@@ -29,15 +25,13 @@ public abstract class AbstractController {
 
     private static final Logger LOGGER = LogManager.getLogger(AbstractController.class);
 
-    private static Map<String, Stage> stageMap = new ConcurrentHashMap<>();
-
     /**
      * 管理所有Stage
      *
      * @param stage stage
      */
     protected void addStage(String key, Stage stage) {
-        stageMap.put(key, stage);
+        StageHelper.addStage(key, stage);
     }
 
     /**
@@ -46,7 +40,7 @@ public abstract class AbstractController {
      * @param key key
      */
     protected Stage getStage(String key) {
-        return stageMap.get(key);
+        return StageHelper.getStage(key);
     }
 
     /**
@@ -55,10 +49,7 @@ public abstract class AbstractController {
      * @param k key
      */
     protected void removeStage(String k) {
-        final Map<String, Stage> stringStageMap = stageMap.entrySet().stream()
-                .filter((e) -> e.getKey().contains(k))
-                .collect(Collectors.toMap((e) -> (String) e.getKey(), Map.Entry::getValue));
-        stringStageMap.keySet().forEach(e -> stageMap.remove(e));
+        StageHelper.removeStage(k);
     }
 
     /**
@@ -67,7 +58,7 @@ public abstract class AbstractController {
      * @param k key
      */
     protected boolean hasStage(String k) {
-        return stageMap.containsKey(k);
+        return StageHelper.hasStage(k);
     }
 
     /**
@@ -81,28 +72,14 @@ public abstract class AbstractController {
      * 关闭所有窗口
      */
     protected void closeAll() {
-        stageMap.values().forEach(Stage::close);
+        StageHelper.closeAll();
     }
 
     /**
      * 打开指定窗口，其他窗口关闭
      */
     protected void showStage(String key) {
-        stageMap.values().forEach(Stage::close);
-        if (stageMap.containsKey(key)) {
-            stageMap.get(key).show();
-        }
-    }
-
-    /**
-     * 关闭所有窗口，并退出程序
-     */
-    protected void exit() {
-        stageMap.values().forEach(Stage::close);
-        stageMap.clear();
-        Platform.exit();
-        System.runFinalization();
-        System.exit(0);
+        StageHelper.showStage(key);
     }
 
     /**
@@ -144,8 +121,8 @@ public abstract class AbstractController {
      */
     protected Stage loadingStage(Stage stage, String url, AbstractController controller, String key) {
 
-        if (stageMap.containsKey(key)) {
-            return stageMap.get(key);
+        if (StageHelper.hasStage(key)) {
+            return StageHelper.getStage(key);
         }
 
         FXMLLoader loader = new FXMLLoader();
@@ -160,7 +137,7 @@ public abstract class AbstractController {
             stage.setScene(scene);
             stage.getIcons().add(new Image("img/logo.png"));
             stage.setTitle(stageTitle());
-            addStage(key, stage);
+            StageHelper.addStage(key, stage);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }

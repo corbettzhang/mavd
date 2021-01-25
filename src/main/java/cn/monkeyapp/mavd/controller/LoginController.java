@@ -1,11 +1,12 @@
 package cn.monkeyapp.mavd.controller;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
-import cn.monkeyapp.mavd.common.Properties;
-import cn.monkeyapp.mavd.common.manage.LogManager;
-import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
 import cn.monkeyapp.mavd.common.MySystemTray;
 import cn.monkeyapp.mavd.common.MyTimerTask;
+import cn.monkeyapp.mavd.common.Properties;
+import cn.monkeyapp.mavd.common.manage.LogManager;
+import cn.monkeyapp.mavd.common.manage.StageHelper;
+import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
 import cn.monkeyapp.mavd.entity.Config;
 import cn.monkeyapp.mavd.entity.Session;
 import cn.monkeyapp.mavd.service.LoginService;
@@ -259,7 +260,7 @@ public class LoginController extends AbstractController implements Initializable
     @Override
     public Stage loadStage(Stage primaryStage, String loginFxmlUrl) {
         final Stage stage = super.loadingStage(primaryStage, loginFxmlUrl, this);
-        stage.setOnCloseRequest(event -> exit());
+        stage.setOnCloseRequest(event -> StageHelper.exit());
         stage.setResizable(false);
         return stage;
     }

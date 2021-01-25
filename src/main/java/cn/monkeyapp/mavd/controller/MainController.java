@@ -3,6 +3,7 @@ package cn.monkeyapp.mavd.controller;
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
+import cn.monkeyapp.mavd.common.manage.StageHelper;
 import cn.monkeyapp.mavd.entity.Session;
 import cn.monkeyapp.mavd.service.XmlService;
 import cn.monkeyapp.mavd.service.impl.XmlServiceImpl;
@@ -257,9 +258,8 @@ public class MainController extends AbstractController implements Initializable 
         return primaryStage;
     }
 
-    @Override
     public void exit() {
-        super.exit();
+        StageHelper.exit();
     }
 
     private void bindAction(JFXHamburger burger) {

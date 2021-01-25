@@ -2,6 +2,7 @@ package cn.monkeyapp.mavd.common;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.manage.LogManager;
+import cn.monkeyapp.mavd.common.manage.StageHelper;
 import cn.monkeyapp.mavd.controller.AboutController;
 import cn.monkeyapp.mavd.controller.MainController;
 import cn.monkeyapp.mavd.controller.NewController;
@@ -83,30 +84,21 @@ public class MySystemTray {
             MenuItem newMenuItem = new MenuItem("新建");
             newMenuItem.addActionListener(event -> {
                 Platform.runLater(() -> {
-                    final Stage newStage = new NewController().loadStage(new Stage(), Properties.NEW_FXML_URL);
-                    newStage.setResizable(false);
-                    newStage.show();
-                    newStage.toFront();
+                    StageHelper.showStage(NewController.class.getName(), false, new NewController(), Properties.NEW_FXML_URL);
                 });
             });
 
             MenuItem preferenceMenuItem = new MenuItem("偏好设置");
             preferenceMenuItem.addActionListener(e -> {
                 Platform.runLater(() -> {
-                    final Stage preferenceStage = new PreferenceController().loadStage(new Stage(), Properties.PREFERENCE_FXML_URL);
-                    preferenceStage.setResizable(false);
-                    preferenceStage.show();
-                    preferenceStage.toFront();
+                    StageHelper.showStage(PreferenceController.class.getName(), false, new PreferenceController(), Properties.PREFERENCE_FXML_URL);
                 });
             });
 
             MenuItem aboutMenuItem = new MenuItem("关于MAVD");
             aboutMenuItem.addActionListener(event -> {
                 Platform.runLater(() -> {
-                    final Stage aboutStage = new AboutController().loadStage(new Stage(), Properties.ABOUT_FXML_URL);
-                    aboutStage.setResizable(false);
-                    aboutStage.show();
-                    aboutStage.toFront();
+                    StageHelper.showStage(AboutController.class.getName(), false, new AboutController(), Properties.ABOUT_FXML_URL);
                 });
             });
 
