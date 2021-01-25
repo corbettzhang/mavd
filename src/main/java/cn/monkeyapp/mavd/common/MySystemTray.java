@@ -82,26 +82,32 @@ public class MySystemTray {
 
             MenuItem newMenuItem = new MenuItem("新建");
             newMenuItem.addActionListener(event -> {
-                final Stage newStage = new NewController().loadStage(new Stage(), Properties.NEW_FXML_URL);
-                newStage.setResizable(false);
-                newStage.show();
-                newStage.toFront();
+                Platform.runLater(() -> {
+                    final Stage newStage = new NewController().loadStage(new Stage(), Properties.NEW_FXML_URL);
+                    newStage.setResizable(false);
+                    newStage.show();
+                    newStage.toFront();
+                });
             });
 
             MenuItem preferenceMenuItem = new MenuItem("偏好设置");
             preferenceMenuItem.addActionListener(e -> {
-                final Stage preferenceStage = new PreferenceController().loadStage(new Stage(), Properties.PREFERENCE_FXML_URL);
-                preferenceStage.setResizable(false);
-                preferenceStage.show();
-                preferenceStage.toFront();
+                Platform.runLater(() -> {
+                    final Stage preferenceStage = new PreferenceController().loadStage(new Stage(), Properties.PREFERENCE_FXML_URL);
+                    preferenceStage.setResizable(false);
+                    preferenceStage.show();
+                    preferenceStage.toFront();
+                });
             });
 
             MenuItem aboutMenuItem = new MenuItem("关于MAVD");
             aboutMenuItem.addActionListener(event -> {
-                final Stage aboutStage = new AboutController().loadStage(new Stage(), Properties.ABOUT_FXML_URL);
-                aboutStage.setResizable(false);
-                aboutStage.show();
-                aboutStage.toFront();
+                Platform.runLater(() -> {
+                    final Stage aboutStage = new AboutController().loadStage(new Stage(), Properties.ABOUT_FXML_URL);
+                    aboutStage.setResizable(false);
+                    aboutStage.show();
+                    aboutStage.toFront();
+                });
             });
 
             MenuItem supportMenuItem = new MenuItem("意见反馈");
