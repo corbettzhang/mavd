@@ -86,7 +86,10 @@ public class StageHelper {
     }
 
     /**
-     * 打开指定窗口，其他窗口关闭
+     * 通过反射方式获取stage
+     * @param resizable 是否最大化
+     * @param controller 具体的controller
+     * @param listFxmlUrl fxml路径
      */
     public static void showStage(boolean resizable, AbstractController controller, String listFxmlUrl) {
         try {
