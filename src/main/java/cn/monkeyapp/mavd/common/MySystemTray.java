@@ -2,7 +2,9 @@ package cn.monkeyapp.mavd.common;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.manage.LogManager;
+import cn.monkeyapp.mavd.controller.AboutController;
 import cn.monkeyapp.mavd.controller.MainController;
+import cn.monkeyapp.mavd.controller.PreferenceController;
 import cn.monkeyapp.mavd.entity.Config;
 import cn.monkeyapp.mavd.util.OpenBrowserUtils;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
@@ -64,14 +66,6 @@ public class MySystemTray {
             loadStage.toFront();
         }));
 
-//        MenuItem settingItem = new MenuItem("偏好设置");
-//        settingItem.addActionListener(e -> Platform.runLater(() -> {
-//            final Stage preferenceStage = new PreferenceController().loadStage(new Stage(), Properties.PREFERENCE_FXML_URL);
-//            preferenceStage.setResizable(false);
-//            preferenceStage.show();
-//            preferenceStage.toFront();
-//        }));
-
         MenuItem openSiteItem = new MenuItem("打开网站");
         openSiteItem.addActionListener(e -> OpenBrowserUtils.openUrl(((Config) LocalCache.getInstance().get(Properties.CONFIG_KEY)).getWebSite()));
 
@@ -82,8 +76,35 @@ public class MySystemTray {
         });
 
         popupMenu.add(openItem);
-//        popupMenu.addSeparator();
-//        popupMenu.add(settingItem);
+
+        if (OsInfoUtils.isWindows()) {
+            popupMenu.addSeparator();
+            MenuItem preferenceMenuItem = new MenuItem("偏好设置");
+            preferenceMenuItem.addActionListener(e -> {
+                final Stage preferenceStage = new PreferenceController().loadStage(new Stage(), Properties.PREFERENCE_FXML_URL);
+                preferenceStage.setResizable(false);
+                preferenceStage.show();
+                preferenceStage.toFront();
+            });
+
+            MenuItem aboutMenuItem = new MenuItem("关于");
+            aboutMenuItem.addActionListener(event -> {
+                final Stage aboutStage = new AboutController().loadStage(new Stage(), Properties.ABOUT_FXML_URL);
+                aboutStage.setResizable(false);
+                aboutStage.show();
+                aboutStage.toFront();
+            });
+
+            MenuItem supportMenuItem = new MenuItem("意见反馈");
+            supportMenuItem.addActionListener(event -> {
+                OpenBrowserUtils.openUrl("https://monkeyapp.cn/contacts");
+            });
+            popupMenu.add(preferenceMenuItem);
+            popupMenu.add(aboutMenuItem);
+            popupMenu.add(supportMenuItem);
+            popupMenu.addSeparator();
+        }
+
         popupMenu.add(openSiteItem);
         popupMenu.addSeparator();
         popupMenu.add(quitItem);
