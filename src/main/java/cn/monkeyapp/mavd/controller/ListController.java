@@ -199,7 +199,7 @@ public class ListController extends AbstractController implements Initializable 
         });
 
         treeTableViewRemove.setOnMouseClicked((e) -> {
-            if (editableTreeTableView.getSelectionModel().getFocusedIndex() > 0) {
+            if (editableTreeTableView.getSelectionModel().getFocusedIndex() > -1) {
                 if (sqliteService.deleteById(editableTreeTableView.getSelectionModel().selectedItemProperty().get().getValue().id.getValue())) {
                     data.remove(editableTreeTableView.getSelectionModel().selectedItemProperty().get().getValue());
                     final IntegerProperty currCountProp = editableTreeTableView.currentItemsCountProperty();

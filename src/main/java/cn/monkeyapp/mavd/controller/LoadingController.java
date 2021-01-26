@@ -191,11 +191,6 @@ public class LoadingController extends AbstractController implements Initializab
                 startButton.setDisable(true);
                 try {
                     doDownload();
-                    // 请求主窗口获取焦点
-                    final Stage stage = getStage(MainController.class.getName());
-                    if (!stage.isFocused()) {
-                        stage.requestFocus();
-                    }
                 } catch (Exception e) {
                     LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 } finally {

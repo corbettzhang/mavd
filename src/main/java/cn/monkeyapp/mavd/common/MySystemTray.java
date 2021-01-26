@@ -111,7 +111,6 @@ public class MySystemTray {
 
         }
 
-        popupMenu.addSeparator();
         popupMenu.add(quitItem);
 
         try {
