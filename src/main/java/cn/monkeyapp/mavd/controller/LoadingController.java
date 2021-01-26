@@ -573,7 +573,11 @@ public class LoadingController extends AbstractController implements Initializab
                         s;
         content.setVideoPath(s);
         try {
-            ExecuteHelper.exeCmd(command, callback);
+            if (OsInfoUtils.isWindows()) {
+                ExecuteHelper.executeCommand(command, callback);
+            } else {
+                ExecuteHelper.exeCmd(command, callback);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
