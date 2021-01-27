@@ -1,5 +1,7 @@
 package cn.monkeyapp.mavd.youtubedl;
 
+import cn.monkeyapp.mavd.common.ProgressCallback;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.regex.Matcher;

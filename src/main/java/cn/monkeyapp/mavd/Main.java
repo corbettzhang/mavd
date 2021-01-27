@@ -1,8 +1,8 @@
 package cn.monkeyapp.mavd;
 
+import cn.monkeyapp.mavd.common.GlobalMenuBar;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.init.LibraryHelper;
-import cn.monkeyapp.mavd.common.GlobalMenuBar;
 import cn.monkeyapp.mavd.controller.LoginController;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
 import javafx.application.Application;
@@ -39,6 +39,5 @@ public class Main extends Application {
         LibraryHelper.initialize();
 
     }
-
 
 }

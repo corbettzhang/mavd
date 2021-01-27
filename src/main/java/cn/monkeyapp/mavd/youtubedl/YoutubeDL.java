@@ -1,6 +1,7 @@
 package cn.monkeyapp.mavd.youtubedl;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
+import cn.monkeyapp.mavd.common.ProgressCallback;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.entity.*;
 import cn.monkeyapp.mavd.exception.MonkeyException;

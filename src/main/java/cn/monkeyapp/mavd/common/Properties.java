@@ -61,7 +61,7 @@ public class Properties {
     /**
      * 系统通知桥接器
      */
-    public static final String NS_USER_NOTIFICATIONS_BRIDGE_KEY = "NsUserNotificationsBridge";
+    public static final String NS_USER_NOTIFICATIONS_BRIDGE_KEY = "NsUserNotificationsBridge.dylib";
 
     /**
      * fxml资源路径

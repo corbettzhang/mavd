@@ -1,15 +1,18 @@
 package cn.monkeyapp.mavd.controller;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
+import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
 import cn.monkeyapp.mavd.common.sqlite.SqliteHandler;
 import cn.monkeyapp.mavd.entity.Content;
+import cn.monkeyapp.mavd.entity.Preference;
 import cn.monkeyapp.mavd.entity.StatusEnum;
 import cn.monkeyapp.mavd.entity.Task;
 import cn.monkeyapp.mavd.exception.MonkeyException;
 import cn.monkeyapp.mavd.service.SqliteService;
 import cn.monkeyapp.mavd.service.impl.SqliteServiceImpl;
+import cn.monkeyapp.mavd.util.FileUtils;
 import cn.monkeyapp.mavd.youtubedl.YoutubeDL;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
@@ -33,12 +36,14 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.InetSocketAddress;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -219,8 +224,8 @@ public class ListController extends AbstractController implements Initializable 
                     Tooltip.uninstall(editableTreeTableView, editableTreeTableView.getTooltip());
 
                     final TaskProperty taskProperty = editableTreeTableView.getSelectionModel().getSelectedItem().getValue();
-                    if (tooltipMap.get(taskProperty.getUrl().getValue()) != null) {
-                        final Tooltip tooltip = tooltipMap.get(taskProperty.getUrl().getValue());
+                    if (TOOLTIP_MAP.get(taskProperty.getUrl().getValue()) != null) {
+                        final Tooltip tooltip = TOOLTIP_MAP.get(taskProperty.getUrl().getValue());
                         Tooltip.install(editableTreeTableView, tooltip);
                     } else {
                         javafx.concurrent.Task<Content> progressTask = new javafx.concurrent.Task<Content>() {
@@ -233,15 +238,16 @@ public class ListController extends AbstractController implements Initializable 
                             VBox pane = new VBox();
                             final ImageView imageView = new ImageView();
                             try {
-                                imageView.setImage(new Image(progressTask.get().getThumbnail()));
+                                String localPath = downloadImage(progressTask.get().getThumbnail());
+                                imageView.setImage(new Image(new FileInputStream(new File(localPath))));
                                 imageView.setFitWidth(130);
                                 imageView.setFitHeight(100);
                                 pane.getChildren().addAll(imageView, new Label(progressTask.get().getTitle()));
                                 final Tooltip tooltip = new Tooltip();
                                 tooltip.setGraphic(pane);
                                 Tooltip.install(editableTreeTableView, tooltip);
-                                tooltipMap.put(taskProperty.getUrl().getValue(), tooltip);
-                            } catch (InterruptedException | ExecutionException ex) {
+                                TOOLTIP_MAP.put(taskProperty.getUrl().getValue(), tooltip);
+                            } catch (Exception ex) {
                                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                             }
                         });
@@ -259,7 +265,27 @@ public class ListController extends AbstractController implements Initializable 
                 .addListener(setupSearchField(editableTreeTableView));
     }
 
-    private static final Map<String, Tooltip> tooltipMap = new ConcurrentHashMap<>();
+    private String downloadImage(String thumbnail) throws Exception {
+        final String path = LocalCache.getInstance().get(Properties.PHOTO_PATH_KEY) + File.separator + thumbnail.substring(thumbnail.lastIndexOf('/') + 1);
+        File file = new File(path);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        final Preference preference = (Preference) LocalCache.getInstance().get(Properties.PREFERENCE_KEY);
+        if (preference.getIsProxy() == 1) {
+            final Preference.Proxy proxy = preference.getProxy();
+            if (proxy.getHostname() != null && proxy.getPort() != 0) {
+                final InetSocketAddress address = new InetSocketAddress(proxy.getHostname(), proxy.getPort());
+                FileUtils.download(thumbnail, file, address);
+                return path;
+            }
+        } else {
+            FileUtils.download(thumbnail, file);
+        }
+        return path;
+    }
+
+    private static final Map<String, Tooltip> TOOLTIP_MAP = new ConcurrentHashMap<>();
 
     private boolean updateTaskInfo(Task task, String field) {
         try {

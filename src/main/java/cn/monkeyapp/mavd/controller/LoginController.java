@@ -267,11 +267,6 @@ public class LoginController extends AbstractController implements Initializable
 
     @FXML
     private void skipLabelMouseClicked(MouseEvent mouseEvent) {
-        // 无需登录，直接跳过。跳过之前，首先去把只下载到本地赋值上
-        final Config config = xmlService.getConfig();
-        config.setOnlyDownload(true);
-        xmlService.saveConfig(config);
-        LocalCache.getInstance().add(config, Properties.CONFIG_KEY);
         showMainStage();
     }
 

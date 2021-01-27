@@ -4,7 +4,9 @@ import cn.monkeyapp.mavd.Main;
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
+import cn.monkeyapp.mavd.service.SqliteService;
 import cn.monkeyapp.mavd.service.XmlService;
+import cn.monkeyapp.mavd.service.impl.SqliteServiceImpl;
 import cn.monkeyapp.mavd.service.impl.XmlServiceImpl;
 import cn.monkeyapp.mavd.util.FileUtils;
 import cn.monkeyapp.mavd.util.IOUtils;
@@ -53,7 +55,14 @@ public class LibraryHelper {
         createDbFile();
         // 创建视频文件存储目录
         createVideoInfo();
+        // 将数据库进行中的任务改为失败
+        updateTaskStatus();
 
+    }
+
+    private static void updateTaskStatus() {
+        final SqliteService sqliteService = new SqliteServiceImpl();
+        sqliteService.updateExecute();
     }
 
     private static void createLibFile(File file) {

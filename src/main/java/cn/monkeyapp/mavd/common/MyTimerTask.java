@@ -56,6 +56,7 @@ public class MyTimerTask extends TimerTask {
                 final LoadingController loadingController = new LoadingController(content);
                 final Stage stage = loadingController.loadStage(new Stage(), Properties.LOADING_FXML_URL);
                 stage.setResizable(false);
+                stage.setTitle("任务【" + task.getId() + "】");
                 stage.hide();
                 // 获取fxml中id为startButton的控件
                 Button button = (Button) stage.getScene().lookup("#startButton");

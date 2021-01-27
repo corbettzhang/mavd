@@ -3,6 +3,8 @@ package cn.monkeyapp.mavd.util;
 import cn.monkeyapp.mavd.Main;
 
 import java.io.*;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Objects;
@@ -157,10 +159,22 @@ public class FileUtils {
     }
 
     public static void download(String urlString, File file) throws Exception {
+        download(urlString, file, null);
+    }
+
+    public static void download(String urlString, File file, InetSocketAddress address) throws Exception {
         // 构造URL
         URL url = new URL(urlString);
+
         // 打开连接
-        URLConnection con = url.openConnection();
+        URLConnection con;
+        if (address != null) {
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, address);
+            con = url.openConnection(proxy);
+        } else {
+            con = url.openConnection();
+        }
+
         //超时响应时间为10秒
         con.setConnectTimeout(10 * 1000);
         // 输入流

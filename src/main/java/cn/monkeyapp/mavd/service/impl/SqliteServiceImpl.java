@@ -171,7 +171,7 @@ public class SqliteServiceImpl implements SqliteService {
 
     @Override
     public boolean updateExecute() {
-        return update("update main.task set status = 1 where status = 0;");
+        return update("update main.task set status = 4 where status = 2;");
     }
 }
 

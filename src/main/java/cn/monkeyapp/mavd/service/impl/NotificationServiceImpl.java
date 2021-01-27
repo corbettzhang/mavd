@@ -1,8 +1,8 @@
 package cn.monkeyapp.mavd.service.impl;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
-import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.MySystemTray;
+import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.entity.Preference;
 import cn.monkeyapp.mavd.service.NotificationService;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
@@ -10,6 +10,7 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 
 import java.awt.TrayIcon.MessageType;
+import java.io.File;
 
 /**
  * 发送通知栏消息
@@ -33,12 +34,14 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     interface NsUserNotificationsBridge extends Library {
-        NsUserNotificationsBridge INSTANCE = Native.loadLibrary((String) LocalCache.getInstance().get(Properties.NS_USER_NOTIFICATIONS_BRIDGE_KEY), NsUserNotificationsBridge.class);
+        NsUserNotificationsBridge INSTANCE = Native.load(
+                LocalCache.getInstance().get(Properties.LIB_KEY) + File.separator + Properties.NS_USER_NOTIFICATIONS_BRIDGE_KEY,
+                NsUserNotificationsBridge.class);
 
         /**
          * MacOS发送消息通知
          *
-         * @param title
+         * @param title      .
          * @param subtitle
          * @param text
          * @param timeoffset

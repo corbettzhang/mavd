@@ -2,9 +2,9 @@ package cn.monkeyapp.mavd.common.manage;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
-import cn.monkeyapp.mavd.youtubedl.ProgressCallback;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,17 +46,11 @@ public class ImageConverter {
      */
     public void toNormalImage(File src, File dest) {
         String command = commandDir + (dest.getName().endsWith(".gif") ? File.separator + "gif2webp" : File.separator + "dwebp ") + src.getPath() + " -o " + dest.getPath();
-        ExecuteHelper.executeCommand(command, new ProgressCallback() {
-            @Override
-            public void onProgressUpdate(float progress, long etaInSeconds) {
-
-            }
-
-            @Override
-            public void onProgressUpdate(String line) {
-                LOGGER.log(Level.INFO, line);
-            }
-        });
+        try {
+            Runtime.getRuntime().exec(command);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
     }
 
     /**
@@ -78,17 +72,7 @@ public class ImageConverter {
     public void toWEBP(File src, File dest) {
         try {
             String command = commandDir + (src.getName().endsWith(".gif") ? File.separator + "gif2webp " : File.separator + "cwebp ") + src.getPath() + " -o " + dest.getPath();
-            ExecuteHelper.executeCommand(command, new ProgressCallback() {
-                @Override
-                public void onProgressUpdate(float progress, long etaInSeconds) {
-
-                }
-
-                @Override
-                public void onProgressUpdate(String line) {
-                    LOGGER.log(Level.INFO, line);
-                }
-            });
+            Runtime.getRuntime().exec(command);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }

@@ -1,6 +1,7 @@
 package cn.monkeyapp.mavd.controller;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
+import cn.monkeyapp.mavd.common.ProgressCallback;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.ExecuteHelper;
 import cn.monkeyapp.mavd.common.manage.ImageConverter;
@@ -14,7 +15,6 @@ import cn.monkeyapp.mavd.service.SqliteService;
 import cn.monkeyapp.mavd.service.impl.NotificationServiceImpl;
 import cn.monkeyapp.mavd.service.impl.SqliteServiceImpl;
 import cn.monkeyapp.mavd.util.*;
-import cn.monkeyapp.mavd.youtubedl.ProgressCallback;
 import cn.monkeyapp.mavd.youtubedl.YoutubeDL;
 import cn.monkeyapp.mavd.youtubedl.YoutubeDLRequest;
 import cn.monkeyapp.mavd.youtubedl.YoutubeDLResponse;
@@ -242,6 +242,10 @@ public class LoadingController extends AbstractController implements Initializab
         });
 
         downloadVideoTask.setOnSucceeded(e -> {
+            // 转换视频格式
+            if (!content.getIsMp4()) {
+                convertToMp4(content);
+            }
             rotateTransition2.jumpTo(Duration.ZERO);
             if (settings.getOnlyDownload()) {
                 success(rotateTransition2, img2);
@@ -426,21 +430,6 @@ public class LoadingController extends AbstractController implements Initializab
                     public void onProgressUpdate(String line) {
                     }
                 });
-
-                // 转换视频格式
-                if (!content.getIsMp4()) {
-                    convertToMp4(content, new ProgressCallback() {
-                        @Override
-                        public void onProgressUpdate(float progress, long etaInSeconds) {
-                            updateMessage(String.format("剩余时间：%s s 已下载 %s", etaInSeconds, progress + " %"));
-                        }
-
-                        @Override
-                        public void onProgressUpdate(String line) {
-                        }
-                    });
-                }
-
                 return true;
             }
         };
@@ -552,31 +541,20 @@ public class LoadingController extends AbstractController implements Initializab
      * ffmpeg -i "Spider-Man.webm" -c copy "Spider-Man.mp4"
      * 转换格式为MP4
      *
-     * @param content
-     * @param callback
+     * @param content 下载上下文
      */
-    private void convertToMp4(Content content, ProgressCallback callback) {
+    private void convertToMp4(Content content) {
         content.setVideoName(content.getVideoName().substring(0, content.getVideoName().indexOf('.') + 1) + "mp4"); // 合并后的视频文件名称
         final String s = LocalCache.getInstance().get(Properties.DATA_KEY) + StringUtils.stringToPath(content.getId()) + content.getVideoName();
-
-        String command =
-                LocalCache.getInstance().get(Properties.LIB_KEY) + File.separator +
-                        "ffmpeg " +
-                        "-i " +    //输入文件地址
-                        content.getVideoPath() +
-                        "  -c copy " +    //指示ffmpeg在转换过程中不要调整视频质量
-                        s;
+        // content.getVideoPath()  输入文件地址
+        // -c copy 指示ffmpeg在转换过程中不要调整视频质量
+        String command = LocalCache.getInstance().get(Properties.LIB_KEY) + File.separator + "ffmpeg " + "-i " + content.getVideoPath() + "  -c copy " + s;
         content.setVideoPath(s);
         try {
-            if (OsInfoUtils.isWindows()) {
-                ExecuteHelper.executeCommand(command, callback);
-            } else {
-                ExecuteHelper.exeCmd(command, callback);
-            }
+            Runtime.getRuntime().exec(command);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
-
     }
 
     /**
@@ -588,6 +566,7 @@ public class LoadingController extends AbstractController implements Initializab
     public void execute(ProgressCallback callback, String subtitle) throws IOException {
         content.setVideoName1(content.getVideoName() + "sub"); // 合并后的视频文件名称
         content.setVideoPath1(LocalCache.getInstance().get(Properties.DATA_KEY) + StringUtils.stringToPath(content.getId()) + content.getVideoName1());
+        ExecuteHelper executeHelper = new ExecuteHelper();
         String command =
                 LocalCache.getInstance().get(Properties.LIB_KEY) + File.separator +
                         "ffmpeg " +
@@ -598,7 +577,7 @@ public class LoadingController extends AbstractController implements Initializab
                         " -y " +   //覆盖输出文件无需提问
                         content.getVideoPath1();
 
-        ExecuteHelper.exeCmd(command, callback);
+        executeHelper.exec(command, callback);
     }
 
 
@@ -630,12 +609,14 @@ public class LoadingController extends AbstractController implements Initializab
      * 传媒体类型文件到服务器上
      *
      * @param client  客户端
-     * @param content 文件名c称
-     * @return
-     * @throws XmlRpcException
+     * @param content 文件名称
+     * @return 文件ID
+     * @throws Exception
      */
-    private int doUploadMediaObject(XmlRpcClient client, Content content) throws XmlRpcException {
-
+    private int doUploadMediaObject(XmlRpcClient client, Content content) throws Exception {
+        if (session == null) {
+            throw new MonkeyException("用户未登录");
+        }
         Map<String, Object> post = new HashMap<>(3);
         post.put("name", content.getImageName1());
         post.put("type", "image/jpg");
