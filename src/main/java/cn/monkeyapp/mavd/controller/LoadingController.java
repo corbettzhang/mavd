@@ -289,12 +289,12 @@ public class LoadingController extends AbstractController implements Initializab
             openBrowserUrl = String.format(settings.getUrl(), uploadToWordPressTask.getValue());
             setMessage(openBrowserUrl);
             success(rotateTransition5, img5);
-            labSuccess.setText("Uploaded successful. ");
+            labSuccess.setText("下载完成. ");
             labSuccess.setVisible(true);
             startButton.setText("OPEN");
             startButton.setDisable(false);
-            notificationService.sendNotification("已处理完成", "", "uploaded successful. " + openBrowserUrl, 0);
-
+            notificationService.sendNotification("已处理完成", "",
+                    String.format("已完成任务【%s】，访问地址为：%s", content.getTaskId(), openBrowserUrl), 0);
         });
         uploadToWordPressTask.messageProperty().addListener((observable, oldValue, newValue) -> setMessage(newValue));
         uploadToWordPressTask.setOnFailed(e -> {

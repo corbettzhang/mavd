@@ -238,7 +238,7 @@ public class ListController extends AbstractController implements Initializable 
                             VBox pane = new VBox();
                             final ImageView imageView = new ImageView();
                             try {
-                                String localPath = downloadImage(progressTask.get().getThumbnail());
+                                String localPath = downloadImage(progressTask.get().getThumbnail(), progressTask.get().getId());
                                 imageView.setImage(new Image(new FileInputStream(new File(localPath))));
                                 imageView.setFitWidth(130);
                                 imageView.setFitHeight(100);
@@ -265,8 +265,10 @@ public class ListController extends AbstractController implements Initializable 
                 .addListener(setupSearchField(editableTreeTableView));
     }
 
-    private String downloadImage(String thumbnail) throws Exception {
-        final String path = LocalCache.getInstance().get(Properties.PHOTO_PATH_KEY) + File.separator + thumbnail.substring(thumbnail.lastIndexOf('/') + 1);
+    private String downloadImage(String thumbnail, String id) throws Exception {
+        final String url = thumbnail.split("\\?")[0];
+        final String substring = url.substring(url.lastIndexOf('.'));
+        final String path = LocalCache.getInstance().get(Properties.PHOTO_PATH_KEY) + File.separator + id + substring;
         File file = new File(path);
         if (!file.exists()) {
             file.createNewFile();
