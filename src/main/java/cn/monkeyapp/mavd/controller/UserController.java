@@ -1,9 +1,9 @@
 package cn.monkeyapp.mavd.controller;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
+import cn.monkeyapp.mavd.common.MySystemTray;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
-import cn.monkeyapp.mavd.common.MySystemTray;
 import cn.monkeyapp.mavd.entity.Config;
 import cn.monkeyapp.mavd.entity.Session;
 import javafx.fxml.FXML;
@@ -26,6 +26,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * 用户信息
+ *
  * @author Corbett Zhang
  */
 public class UserController extends AbstractController implements Initializable {
@@ -84,6 +86,6 @@ public class UserController extends AbstractController implements Initializable 
 
     @Override
     protected String stageTitle() {
-        return "list";
+        return "我的信息";
     }
 }
