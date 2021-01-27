@@ -383,7 +383,7 @@ public class LoadingController extends AbstractController implements Initializab
 
         if (map.containsKey("mp4")) {
             content.setIsMp4(true);
-            content.setDefaultVideoFormat(content.getExt());
+            content.setDefaultVideoFormat("mp4");
             return;
         }
 

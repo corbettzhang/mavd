@@ -272,17 +272,17 @@ public class ListController extends AbstractController implements Initializable 
         File file = new File(path);
         if (!file.exists()) {
             file.createNewFile();
-        }
-        final Preference preference = (Preference) LocalCache.getInstance().get(Properties.PREFERENCE_KEY);
-        if (preference.getIsProxy() == 1) {
-            final Preference.Proxy proxy = preference.getProxy();
-            if (proxy.getHostname() != null && proxy.getPort() != 0) {
-                final InetSocketAddress address = new InetSocketAddress(proxy.getHostname(), proxy.getPort());
-                FileUtils.download(thumbnail, file, address);
-                return path;
+            final Preference preference = (Preference) LocalCache.getInstance().get(Properties.PREFERENCE_KEY);
+            if (preference.getIsProxy() == 1) {
+                final Preference.Proxy proxy = preference.getProxy();
+                if (proxy.getHostname() != null && proxy.getPort() != 0) {
+                    final InetSocketAddress address = new InetSocketAddress(proxy.getHostname(), proxy.getPort());
+                    FileUtils.download(thumbnail, file, address);
+                    return path;
+                }
+            } else {
+                FileUtils.download(thumbnail, file);
             }
-        } else {
-            FileUtils.download(thumbnail, file);
         }
         return path;
     }
