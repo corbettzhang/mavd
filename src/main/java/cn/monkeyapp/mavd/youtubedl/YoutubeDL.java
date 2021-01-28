@@ -36,11 +36,11 @@ public class YoutubeDL {
      * @return 命令字符串
      */
     protected static String buildCommand(String command) {
-        String executablePath = null;
-        if (OsInfoUtils.isMacOS0()) {
-            executablePath = "youtube-dl";
-        } else if (OsInfoUtils.isWindows()) {
+        String executablePath;
+        if (OsInfoUtils.isWindows()) {
             executablePath = "youtube-dl.exe";
+        }else{
+            executablePath = "youtube-dl";
         }
         return String.format("%s %s", LocalCache.getInstance().get(Properties.LIB_KEY) + File.separator + executablePath, command);
     }
