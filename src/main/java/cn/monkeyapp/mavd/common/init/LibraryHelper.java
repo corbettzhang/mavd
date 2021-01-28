@@ -39,6 +39,9 @@ public class LibraryHelper {
 
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
+    private static String[] windowsLibs = new String[]{"cwebp.exe", "dwebp.exe", "ffmpeg.exe", "gif2webp.exe", "youtube-dl.exe"};
+    private static String[] otherLibs = new String[]{"cwebp", "dwebp", "ffmpeg", "gif2webp", "youtube-dl"};
+
     /**
      * 初始化基础数据
      */
@@ -70,6 +73,8 @@ public class LibraryHelper {
         if (!configFile.exists()) {
             final boolean mkdirs = configFile.mkdirs();
             LOGGER.log(Level.INFO, String.format("创建目录[lib]，%s", mkdirs));
+        }
+        if (!verify(configFile.getAbsolutePath(), OsInfoUtils.isWindows() ? windowsLibs : otherLibs)) {
             final File lib = new File(file.getParent(), "lib.zip");
             try {
                 if (!lib.exists()) {
@@ -88,7 +93,6 @@ public class LibraryHelper {
             }
         }
         LocalCache.getInstance().add(configFile.getAbsolutePath(), Properties.LIB_KEY);
-
     }
 
     private static void createVideoInfo() {
@@ -238,6 +242,26 @@ public class LibraryHelper {
         readPermissions(posixView);
         updatePermissions(posixView);
         readPermissions(posixView);
+    }
+
+    /**
+     * 判断文件夹下是否有指定文件
+     *
+     * @param path  要判断的目录
+     * @param files 是否存在的文件列表
+     * @return 是否全部存在
+     */
+    private static boolean verify(String path, String... files) {
+        File home = new File(path);
+        if (!home.isDirectory()) {
+            return false;
+        }
+        for (String s : files) {
+            if (!new File(home, s).exists()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

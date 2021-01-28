@@ -467,7 +467,12 @@ public class LoadingController extends AbstractController implements Initializab
             public Boolean call() throws Exception {
                 // 构造一个带指定 Region 对象的配置类
                 Configuration cfg = new Configuration(Region.autoRegion());
-                Auth auth = Auth.create(settings.getAccessKey(), settings.getSecretKey());
+                Auth auth;
+                try {
+                    auth = Auth.create(settings.getAccessKey(), settings.getSecretKey());
+                } catch (IllegalArgumentException e) {
+                    throw new MonkeyException("未找到云存储相关配置");
+                }
                 String upToken = auth.uploadToken(settings.getBucket());
 
                 String localTempDir = Paths.get(System.getProperty("java.io.tmpdir"), settings.getBucket()).toString();
