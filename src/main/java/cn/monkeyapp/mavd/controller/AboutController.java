@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class AboutController extends AbstractController implements Initializable {
 
-    private static final Logger LOGGER = LogManager.getLogger(ListController.class);
+    private static final Logger LOGGER = LogManager.getLogger(AboutController.class);
 
     @FXML
     private Label versionLabel;
@@ -36,7 +36,7 @@ public class AboutController extends AbstractController implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        versionLabel.setText(FileUtils.getAppVersion());
+        versionLabel.setText(FileUtils.getAppVersion(FileUtils.APP_VERSION));
     }
 
 

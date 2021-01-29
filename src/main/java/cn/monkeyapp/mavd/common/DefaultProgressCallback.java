@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class DefaultProgressCallback implements ProgressCallback {
 
-    private static final Logger LOGGER = LogManager.getLogger(ImageConverter.class);
+    private static final Logger LOGGER = LogManager.getLogger(DefaultProgressCallback.class);
 
     @Override
     public void onProgressUpdate(float progress, long etaInSeconds) {

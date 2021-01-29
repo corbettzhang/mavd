@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class SqliteServiceImpl implements SqliteService {
 
-    private static final Logger LOGGER = LogManager.getLogger(MySystemTray.class);
+    private static final Logger LOGGER = LogManager.getLogger(SqliteServiceImpl.class);
 
     @Override
     public boolean save(Task task) {

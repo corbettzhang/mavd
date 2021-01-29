@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class ExecuteHelper {
 
-    private static final Logger LOGGER = LogManager.getLogger(ImageConverter.class);
+    private static final Logger LOGGER = LogManager.getLogger(ExecuteHelper.class);
 
     public void exec(String command, ProgressCallback callback) {
         if (OsInfoUtils.isWindows()) {

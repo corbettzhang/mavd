@@ -1,13 +1,16 @@
 package cn.monkeyapp.mavd.controller;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
+import cn.monkeyapp.mavd.common.GlobalMenuBar;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.StageHelper;
 import cn.monkeyapp.mavd.entity.Session;
 import cn.monkeyapp.mavd.service.XmlService;
 import cn.monkeyapp.mavd.service.impl.XmlServiceImpl;
+import cn.monkeyapp.mavd.util.FileUtils;
 import cn.monkeyapp.mavd.util.ObjectUtils;
+import cn.monkeyapp.mavd.util.OsInfoUtils;
 import com.jfoenix.controls.JFXHamburger;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -18,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -47,7 +51,9 @@ public class MainController extends AbstractController implements Initializable 
 
     //-------------------------------主窗体-------------------------------
     @FXML
-    private HBox root;
+    private VBox root;
+    @FXML
+    private MenuBar mainMenuBar;
     @FXML
     private VBox mainLeftVBox;
     @FXML
@@ -212,6 +218,14 @@ public class MainController extends AbstractController implements Initializable 
                 }
             }
         });
+
+        if (!OsInfoUtils.isMacOS0()) {
+            mainMenuBar.getMenus().addAll(GlobalMenuBar.getFileMenu(), GlobalMenuBar.getHelpMenu());
+        } else {
+            //适用于MacOS的全局菜单
+            GlobalMenuBar.loadMacMenuBar();
+        }
+
     }
 
     private VBox listVBox;
@@ -290,7 +304,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @Override
     protected String stageTitle() {
-        return "mavd";
+        return FileUtils.getAppVersion(FileUtils.APP_NAME);
     }
 
 }

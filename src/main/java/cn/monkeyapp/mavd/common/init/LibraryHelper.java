@@ -37,7 +37,7 @@ import static java.nio.file.attribute.PosixFilePermission.*;
  */
 public class LibraryHelper {
 
-    private static final Logger LOGGER = LogManager.getLogger(Main.class);
+    private static final Logger LOGGER = LogManager.getLogger(LibraryHelper.class);
 
     private static String[] windowsLibs = new String[]{"cwebp.exe", "dwebp.exe", "ffmpeg.exe", "gif2webp.exe", "youtube-dl.exe"};
     private static String[] otherLibs = new String[]{"cwebp", "dwebp", "ffmpeg", "gif2webp", "youtube-dl"};

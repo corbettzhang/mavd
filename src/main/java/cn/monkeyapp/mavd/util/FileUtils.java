@@ -41,13 +41,16 @@ public class FileUtils {
         return data;
     }
 
-    public static String getAppVersion() {
+    public static final String APP_VERSION = "app.version";
+    public static final String APP_NAME = "app.name";
+
+    public static String getAppVersion(String key) {
         String appVersion = null;
         Properties properties = new Properties();
         try {
             properties.load(Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("app.properties")));
             if (!properties.isEmpty()) {
-                appVersion = properties.getProperty("app.version");
+                appVersion = properties.getProperty(key);
             }
         } catch (IOException e) {
             e.printStackTrace();

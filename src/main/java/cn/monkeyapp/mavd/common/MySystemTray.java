@@ -1,12 +1,7 @@
 package cn.monkeyapp.mavd.common;
 
 import cn.monkeyapp.mavd.common.manage.LogManager;
-import cn.monkeyapp.mavd.common.manage.StageHelper;
-import cn.monkeyapp.mavd.controller.AboutController;
 import cn.monkeyapp.mavd.controller.MainController;
-import cn.monkeyapp.mavd.controller.NewController;
-import cn.monkeyapp.mavd.controller.PreferenceController;
-import cn.monkeyapp.mavd.util.OpenBrowserUtils;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -73,44 +68,6 @@ public class MySystemTray {
         });
 
         popupMenu.add(openItem);
-
-        if (OsInfoUtils.isWindows()) {
-
-            MenuItem newMenuItem = new MenuItem("新建");
-            newMenuItem.addActionListener(event -> {
-                Platform.runLater(() -> {
-                    StageHelper.showStage(false, new NewController(), Properties.NEW_FXML_URL);
-                });
-            });
-
-            MenuItem preferenceMenuItem = new MenuItem("偏好设置");
-            preferenceMenuItem.addActionListener(e -> {
-                Platform.runLater(() -> {
-                    StageHelper.showStage(false, new PreferenceController(), Properties.PREFERENCE_FXML_URL);
-                });
-            });
-
-            MenuItem aboutMenuItem = new MenuItem("关于MAVD");
-            aboutMenuItem.addActionListener(event -> {
-                Platform.runLater(() -> {
-                    StageHelper.showStage(false, new AboutController(), Properties.ABOUT_FXML_URL);
-                });
-            });
-
-            MenuItem supportMenuItem = new MenuItem("意见反馈");
-            supportMenuItem.addActionListener(event -> {
-                OpenBrowserUtils.openUrl("https://monkeyapp.cn/contacts");
-            });
-
-            popupMenu.addSeparator();
-            popupMenu.add(newMenuItem);
-            popupMenu.add(preferenceMenuItem);
-            popupMenu.add(aboutMenuItem);
-            popupMenu.add(supportMenuItem);
-            popupMenu.addSeparator();
-
-        }
-
         popupMenu.add(quitItem);
 
         try {

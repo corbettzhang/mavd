@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class NewController extends AbstractController implements Initializable {
 
-    private static final Logger LOGGER = LogManager.getLogger(ListController.class);
+    private static final Logger LOGGER = LogManager.getLogger(NewController.class);
     private static final SqliteService sqliteService = new SqliteServiceImpl();
 
     @FXML

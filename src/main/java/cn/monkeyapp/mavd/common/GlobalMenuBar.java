@@ -15,18 +15,18 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 
 /**
- * mac系统的全局菜单配置
+ * 系统菜单配置
  *
  * @author zhangcong
  */
 public class GlobalMenuBar {
 
-    public static void loadGlobalMenuBar() {
-
+    /**
+     * mac系统的全局菜单配置
+     */
+    public static void loadMacMenuBar() {
         MenuToolkit tk = MenuToolkit.toolkit();
-
         MenuBar bar = new MenuBar();
-
         Menu appMenu = new Menu();
         appMenu.getItems().addAll(
                 tk.createHideMenuItem(null),
@@ -34,7 +34,23 @@ public class GlobalMenuBar {
                 tk.createUnhideAllMenuItem(),
                 new SeparatorMenuItem(),
                 tk.createQuitMenuItem(null));
+        // 窗口菜单
+        Menu windowMenu = new Menu("窗口");
+        windowMenu.getItems().addAll(
+                tk.createMinimizeMenuItem(),
+                tk.createZoomMenuItem(),
+                tk.createCycleWindowsItem(),
+                new SeparatorMenuItem(),
+                tk.createBringAllToFrontItem(),
+                new SeparatorMenuItem(),
+                tk.createCloseWindowMenuItem()
+        );
+        bar.getMenus().addAll(appMenu, getFileMenu(), windowMenu, getHelpMenu());
+        tk.autoAddWindowMenuItems(windowMenu);
+        tk.setGlobalMenuBar(bar);
+    }
 
+    public static Menu getFileMenu() {
         Menu fileMenu = new Menu("文件");
         MenuItem newItem = new MenuItem("新建");
         newItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.META_DOWN, KeyCombination.CONTROL_DOWN));
@@ -47,16 +63,14 @@ public class GlobalMenuBar {
         settingItem.setOnAction(e -> {
             StageHelper.showStage(false, new PreferenceController(), Properties.PREFERENCE_FXML_URL);
         });
-        fileMenu.getItems().addAll(newItem, settingItem, new SeparatorMenuItem(), tk.createCloseWindowMenuItem());
+        fileMenu.getItems().addAll(newItem, settingItem);
+        return fileMenu;
+    }
 
-        // 窗口菜单
-        Menu windowMenu = new Menu("窗口");
-        windowMenu.getItems().addAll(tk.createMinimizeMenuItem(), tk.createZoomMenuItem(), tk.createCycleWindowsItem(),
-                new SeparatorMenuItem(), tk.createBringAllToFrontItem());
-
+    public static Menu getHelpMenu() {
         // 帮助菜单
         Menu helpMenu = new Menu("帮助");
-        MenuItem aboutMenuItem = new MenuItem("关于MAVD");
+        MenuItem aboutMenuItem = new MenuItem("关于");
         aboutMenuItem.setOnAction(event -> {
             StageHelper.showStage(false, new AboutController(), Properties.ABOUT_FXML_URL);
         });
@@ -66,11 +80,7 @@ public class GlobalMenuBar {
             OpenBrowserUtils.openUrl("https://monkeyapp.cn/contacts");
         });
         helpMenu.getItems().add(supportMenuItem);
-
-
-        bar.getMenus().addAll(appMenu, fileMenu, windowMenu, helpMenu);
-
-        tk.autoAddWindowMenuItems(windowMenu);
-        tk.setGlobalMenuBar(bar);
+        return helpMenu;
     }
+
 }
