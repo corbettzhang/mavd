@@ -1,6 +1,5 @@
 package cn.monkeyapp.mavd.common.init;
 
-import cn.monkeyapp.mavd.Main;
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;

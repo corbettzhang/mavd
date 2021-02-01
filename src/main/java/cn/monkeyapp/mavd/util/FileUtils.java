@@ -44,7 +44,7 @@ public class FileUtils {
     public static final String APP_VERSION = "app.version";
     public static final String APP_NAME = "app.name";
 
-    public static String getAppVersion(String key) {
+    public static String getAppProperties(String key) {
         String appVersion = null;
         Properties properties = new Properties();
         try {

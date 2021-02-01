@@ -2,6 +2,7 @@ package cn.monkeyapp.mavd.common;
 
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.controller.MainController;
+import cn.monkeyapp.mavd.util.FileUtils;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -72,7 +73,7 @@ public class MySystemTray {
 
         try {
             BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/logo.png")));
-            trayIcon = new TrayIcon(image, "MAVD", popupMenu);
+            trayIcon = new TrayIcon(image, FileUtils.getAppProperties(FileUtils.APP_NAME), popupMenu);
             trayIcon.setImageAutoSize(true);
             trayIcon.addMouseListener(new MouseAdapter() {
                 @Override

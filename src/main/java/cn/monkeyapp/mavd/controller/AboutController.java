@@ -36,7 +36,7 @@ public class AboutController extends AbstractController implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        versionLabel.setText(FileUtils.getAppVersion(FileUtils.APP_VERSION));
+        versionLabel.setText(FileUtils.getAppProperties(FileUtils.APP_VERSION));
     }
 
 

@@ -219,11 +219,13 @@ public class MainController extends AbstractController implements Initializable 
             }
         });
 
-        if (!OsInfoUtils.isMacOS0()) {
-            mainMenuBar.getMenus().addAll(GlobalMenuBar.getFileMenu(), GlobalMenuBar.getHelpMenu());
-        } else {
+        if (OsInfoUtils.isMacOS0()) {
             //适用于MacOS的全局菜单
             GlobalMenuBar.loadMacMenuBar();
+        } else if (OsInfoUtils.isWindows()) {
+            mainMenuBar.getMenus().addAll(GlobalMenuBar.getFileMenu(), GlobalMenuBar.getHelpMenu());
+        } else {
+            mainMenuBar.getMenus().addAll(GlobalMenuBar.getFileMenu(), GlobalMenuBar.getHelpMenu());
         }
 
     }
@@ -304,7 +306,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @Override
     protected String stageTitle() {
-        return FileUtils.getAppVersion(FileUtils.APP_NAME);
+        return FileUtils.getAppProperties(FileUtils.APP_NAME);
     }
 
 }
