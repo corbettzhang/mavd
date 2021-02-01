@@ -75,6 +75,11 @@ public class GlobalMenuBar {
             StageHelper.showStage(false, new AboutController(), Properties.ABOUT_FXML_URL);
         });
         helpMenu.getItems().add(aboutMenuItem);
+        MenuItem updateMenuItem = new MenuItem("检查更新");
+        updateMenuItem.setOnAction(event -> {
+            OpenBrowserUtils.openUrl("https://github.com/corbettzhang/MAVD/releases/latest");
+        });
+        helpMenu.getItems().add(updateMenuItem);
         MenuItem supportMenuItem = new MenuItem("意见反馈");
         supportMenuItem.setOnAction(event -> {
             OpenBrowserUtils.openUrl("https://monkeyapp.cn/contacts");
