@@ -328,6 +328,7 @@ public class LoadingController extends AbstractController implements Initializab
         task.setStatus(status);
         try {
             sqliteService.update(SqliteHandler.appendSql(task, "status"));
+            ListController.updateData(task);
         } catch (NoSuchFieldException | IllegalAccessException ex) {
             LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }

@@ -40,8 +40,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.InetSocketAddress;
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -55,6 +55,7 @@ public class ListController extends AbstractController implements Initializable 
 
     private static final Logger LOGGER = LogManager.getLogger(ListController.class);
     private static final SqliteService sqliteService = new SqliteServiceImpl();
+    private static ObservableList<TaskProperty> data = FXCollections.observableArrayList();
 
     @FXML
     private VBox root;
@@ -105,8 +106,41 @@ public class ListController extends AbstractController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setData();
         setupEditableTableView();
         flashTaskNum();
+    }
+
+    private void setData() {
+        data.clear();
+        sqliteService.getTaskList().forEach(task -> {
+            data.add(new TaskProperty(task));
+        });
+    }
+
+    public static void updateData(Task task) {
+        final Optional<TaskProperty> first = data.stream().filter(s -> s.id.get() == task.getId()).findFirst();
+        if (first.isPresent()) {
+            final TaskProperty taskProperty = first.get();
+            if (task.getTitle() != null) {
+                taskProperty.title.setValue(task.getTitle());
+            }
+            if (task.getDescription() != null) {
+                taskProperty.description.setValue(task.getDescription());
+            }
+            if (task.getTag() != null) {
+                taskProperty.tag.setValue(task.getTag());
+            }
+            if (task.getType() != null) {
+                taskProperty.type.setValue(task.getType());
+            }
+            if (task.getUrl() != null) {
+                taskProperty.url.setValue(task.getUrl());
+            }
+            if (task.getStatus() != null) {
+                taskProperty.status.setValue(StatusEnum.getImportance(task.getStatus()));
+            }
+        }
     }
 
     private void flashTaskNum() {
@@ -126,11 +160,6 @@ public class ListController extends AbstractController implements Initializable 
     }
 
     private void setupEditableTableView() {
-        ObservableList<TaskProperty> data = FXCollections.observableArrayList();
-        final List<Task> list = sqliteService.getTaskList();
-        list.forEach(task -> {
-            data.add(new TaskProperty(task));
-        });
 
         setupCellValueFactory(urlColumn, TaskProperty::getUrl);
         setupCellValueFactory(titleColumn, TaskProperty::getTitle);
@@ -248,7 +277,7 @@ public class ListController extends AbstractController implements Initializable 
                                 Tooltip.install(editableTreeTableView, tooltip);
                                 TOOLTIP_MAP.put(taskProperty.getUrl().getValue(), tooltip);
                             } catch (Exception ex) {
-                                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+                                //ignore
                             }
                         });
                         progressTask.setOnFailed((e -> LOGGER.log(Level.SEVERE, e.getSource().getMessage(), e)));
@@ -320,7 +349,7 @@ public class ListController extends AbstractController implements Initializable 
         MenuItem refresh = new MenuItem("刷新");
 
         refresh.setOnAction(event -> {
-            setupEditableTableView();
+            setData();
             flashTaskNum();
         });
         enter.setOnAction(event -> {
@@ -332,7 +361,7 @@ public class ListController extends AbstractController implements Initializable 
                 try {
                     boolean bool = sqliteService.update(SqliteHandler.appendSql(task, "status"));
                     if (bool) {
-                        setupEditableTableView();
+                        updateData(task);
                         flashTaskNum();
                     }
                 } catch (Exception e) {

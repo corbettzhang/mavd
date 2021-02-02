@@ -213,7 +213,7 @@ public class LoginController extends AbstractController implements Initializable
             showStage(MainController.class.getName());
         } else {
             // 启动定时任务，30秒后开始，每隔30秒执行一次
-            ThreadPoolManager.getInstance().addScheduledExecutor(new MyTimerTask(), 30, 30, TimeUnit.SECONDS);
+            ThreadPoolManager.getInstance().addScheduledExecutor(new MyTimerTask(), 10, 10, TimeUnit.SECONDS);
 
             Platform.runLater(() -> {
                 final MainController mainController = new MainController();

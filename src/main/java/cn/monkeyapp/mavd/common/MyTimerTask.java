@@ -3,6 +3,7 @@ package cn.monkeyapp.mavd.common;
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.sqlite.SqliteHandler;
+import cn.monkeyapp.mavd.controller.ListController;
 import cn.monkeyapp.mavd.controller.LoadingController;
 import cn.monkeyapp.mavd.entity.Content;
 import cn.monkeyapp.mavd.entity.StatusEnum;
@@ -93,6 +94,7 @@ public class MyTimerTask extends TimerTask {
         task.setStatus(StatusEnum.ACTIVE_ENUM);
         try {
             sqliteService.update(SqliteHandler.appendSql(task, "status"));
+            ListController.updateData(task);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
