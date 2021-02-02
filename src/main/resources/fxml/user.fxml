@@ -18,7 +18,7 @@
        <Font name="Yuanti SC Light" size="13.0" />
            </font>
        </Label>
-       <Label fx:id="logoutLabel" layoutX="105.0" layoutY="235.0" onMouseClicked="#logoutLabelMouseClicked" text="退出登录" textFill="#f8c1c1">
+       <Label fx:id="logoutLabel" layoutX="105.0" layoutY="235.0" onMouseClicked="#logoutLabelMouseClicked" text="%Logout" textFill="#f8c1c1">
            <font>
              <Font name="Yuanti SC Light" size="13.0" />
            </font>

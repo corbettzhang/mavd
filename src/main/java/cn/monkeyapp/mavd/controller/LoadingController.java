@@ -144,6 +144,11 @@ public class LoadingController extends AbstractController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        img1.setImage(new Image("img/time-machine.png"));
+        img2.setImage(new Image("img/time-machine.png"));
+        img4.setImage(new Image("img/time-machine.png"));
+        img4.setImage(new Image("img/time-machine.png"));
+        img5.setImage(new Image("img/time-machine.png"));
     }
 
     @FXML
@@ -315,8 +320,6 @@ public class LoadingController extends AbstractController implements Initializab
     }
 
     private void exceptionHandler(Throwable e) {
-        LOGGER.log(Level.INFO, "LoadingController.exceptionHandler------------------------》" + content.toString());
-        LOGGER.log(Level.INFO, "修改状态为失败，task：" + content.getTaskId());
         LOGGER.log(Level.SEVERE, e.getMessage(), e);
         removeStage(getClass().getName());
         updateStatus(StatusEnum.FAILED_ENUM);

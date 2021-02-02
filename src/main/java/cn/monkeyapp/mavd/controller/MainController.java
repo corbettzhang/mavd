@@ -12,6 +12,7 @@ import cn.monkeyapp.mavd.util.FileUtils;
 import cn.monkeyapp.mavd.util.ObjectUtils;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
 import com.jfoenix.controls.JFXHamburger;
+import com.sun.javafx.css.StyleManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -35,6 +36,7 @@ import javafx.util.Duration;
 import java.io.*;
 import java.net.URL;
 import java.nio.channels.FileChannel;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.UUID;
@@ -68,6 +70,10 @@ public class MainController extends AbstractController implements Initializable 
     private Label listLabel;
     @FXML
     private Label settingLabel;
+    @FXML
+    private ImageView listImage;
+    @FXML
+    private ImageView settingImage;
 
 
     @FXML
@@ -157,6 +163,11 @@ public class MainController extends AbstractController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        listImage.setImage(new Image("img/detail-project.png"));
+        settingImage.setImage(new Image("img/header-setting.png"));
+        userInfoImage.setImage(new Image("img/user-dropdown.png"));
+
         Session session = ((Session) LocalCache.getInstance().get(Properties.SESSION_KEY));
         // 跳过了登录
         if (session != null) {
@@ -178,27 +189,9 @@ public class MainController extends AbstractController implements Initializable 
         }
 
         // 预加载list UI
-        Platform.runLater(() -> {
-            InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(Properties.MAIN_LIST_FXML_URL);
-            FXMLLoader loader = new FXMLLoader();
-            try {
-                listVBox = loader.load(Objects.requireNonNull(is));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        Platform.runLater(this::loadList);
         // 预加载setting UI
-        Platform.runLater(() -> {
-            final SettingController settingController = new SettingController();
-            InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(Properties.MAIN_SETTING_FXML_URL);
-            FXMLLoader loader = new FXMLLoader();
-            loader.setController(settingController);
-            try {
-                settingVBox = loader.load(Objects.requireNonNull(is));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        Platform.runLater(this::loadSetting);
 
         bindAction(burger);
 
@@ -230,19 +223,37 @@ public class MainController extends AbstractController implements Initializable 
 
     }
 
+    private void loadSetting() {
+        final SettingController settingController = new SettingController();
+        InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(Properties.MAIN_SETTING_FXML_URL);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setController(settingController);
+        try {
+            loader.setResources(ResourceBundle.getBundle("mavd", Locale.getDefault()));
+            settingVBox = loader.load(Objects.requireNonNull(is));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadList() {
+        InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(Properties.MAIN_LIST_FXML_URL);
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            loader.setResources(ResourceBundle.getBundle("mavd", Locale.getDefault()));
+            listVBox = loader.load(Objects.requireNonNull(is));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private VBox listVBox;
     private VBox settingVBox;
 
     @FXML
     private void listHBoxMouseClicked(MouseEvent mouseEvent) {
         if (ObjectUtils.isEmpty(listVBox)) {
-            InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(Properties.MAIN_LIST_FXML_URL);
-            FXMLLoader loader = new FXMLLoader();
-            try {
-                listVBox = loader.load(Objects.requireNonNull(is));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            loadList();
         }
 
         mainRightVBox.getChildren().set(1, listVBox);
@@ -252,15 +263,7 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     private void settingHBoxMouseClicked(MouseEvent mouseEvent) {
         if (ObjectUtils.isEmpty(settingVBox)) {
-            SettingController settingController = new SettingController();
-            InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(Properties.MAIN_SETTING_FXML_URL);
-            FXMLLoader loader = new FXMLLoader();
-            loader.setController(settingController);
-            try {
-                settingVBox = loader.load(Objects.requireNonNull(is));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            loadSetting();
         }
         mainRightVBox.getChildren().set(1, settingVBox);
         VBox.setVgrow(settingVBox, Priority.ALWAYS);

@@ -30,7 +30,7 @@
             <Insets bottom="4.0" left="10.0" right="10.0" top="6.0" />
          </HBox.margin>
         </JFXButton>
-        <JFXTextField fx:id="searchField" focusColor="WHITE" promptText="   搜索 . . ." style="-fx-border-color: #fff;" unFocusColor="WHITE">
+        <JFXTextField fx:id="searchField" focusColor="WHITE" promptText="%Search" style="-fx-border-color: #fff;" unFocusColor="WHITE">
             <font>
                 <Font name="Yuanti SC Light" size="13.0" />
             </font>
@@ -44,13 +44,13 @@
     </HBox>
     <JFXTreeTableView fx:id="editableTreeTableView" editable="true" onContextMenuRequested="#treeTableViewContextMenuRequested" style="-fx-background-radius: 7px;" VBox.vgrow="ALWAYS">
         <columns>
-            <JFXTreeTableColumn fx:id="idColumn" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="序号" />
-            <JFXTreeTableColumn fx:id="urlColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="视频网址" />
-            <JFXTreeTableColumn fx:id="titleColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="标题" />
-            <JFXTreeTableColumn fx:id="tagColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="标签" />
-            <JFXTreeTableColumn fx:id="typeColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="类型" />
-            <JFXTreeTableColumn fx:id="descriptionColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="描述" />
-            <JFXTreeTableColumn fx:id="statusColumn" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0" resizable="false" text="状态" />
+            <JFXTreeTableColumn fx:id="idColumn" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="%SerialNumber" />
+            <JFXTreeTableColumn fx:id="urlColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="%VideoUrl" />
+            <JFXTreeTableColumn fx:id="titleColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="%Title" />
+            <JFXTreeTableColumn fx:id="tagColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="%Tag" />
+            <JFXTreeTableColumn fx:id="typeColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="%Type" />
+            <JFXTreeTableColumn fx:id="descriptionColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="%Description" />
+            <JFXTreeTableColumn fx:id="statusColumn" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0" resizable="false" text="%Status" />
         </columns>
         <VBox.margin>
             <Insets left="5.0" right="5.0" />
@@ -66,7 +66,7 @@
         <StackPane HBox.hgrow="ALWAYS">
             <StackPane maxWidth="200" StackPane.alignment="CENTER_RIGHT" />
         </StackPane>
-        <Label alignment="CENTER" text="任务数">
+        <Label alignment="CENTER" text="%TaskNumber">
             <font>
                 <Font name="Yuanti SC Bold" size="13.0" />
             </font>
@@ -79,7 +79,7 @@
                 <Font name="Yuanti SC Bold" size="13.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" text="队列中">
+        <Label alignment="CENTER" text="%Conducting">
             <font>
                 <Font name="Yuanti SC Bold" size="13.0" />
             </font>
@@ -92,7 +92,7 @@
                 <Font name="Yuanti SC Bold" size="13.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" text="已完成">
+        <Label alignment="CENTER" text="%Completed">
             <font>
                 <Font name="Yuanti SC Bold" size="13.0" />
             </font>

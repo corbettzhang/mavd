@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" onKeyPressed="#paneKeyPressed" onMouseDragged="#mainPaneMouseDragged" onMousePressed="#mainPaneMousePressed" prefHeight="360.0" prefWidth="300.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="mainPane" onKeyPressed="#paneKeyPressed" onMouseDragged="#mainPaneMouseDragged" onMousePressed="#mainPaneMousePressed" prefHeight="360.0" prefWidth="300.0" styleClass="parent" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane layoutX="103.0" layoutY="37.0" prefHeight="90.0" prefWidth="95.0" style="-fx-background-radius: 10px;">
          <children>
@@ -23,18 +23,18 @@
          </children>
       </Pane>
       <FontAwesomeIconView fill="#b9b5b5" glyphName="USER" glyphStyle="-fx-fill:#AAA" layoutX="47.0" layoutY="182.0" size="1.8em" wrappingWidth="11.428571701049805" />
-      <JFXTextField fx:id="usernameTextField" layoutX="74.0" layoutY="155.0" prefHeight="30.0" prefWidth="180.0" promptText="用户名" unFocusColor="#8aa4d6">
+      <JFXTextField fx:id="usernameTextField" layoutX="74.0" layoutY="155.0" prefHeight="30.0" prefWidth="180.0" promptText="%UserName" unFocusColor="#8aa4d6">
          <font>
             <Font name="Yuanti SC Light" size="12.0" />
          </font>
       </JFXTextField>
       <FontAwesomeIconView fill="#b9b5b5" glyphName="LOCK" glyphStyle="-fx-fill:#AAA" layoutX="48.0" layoutY="227.0" size="1.8em" wrappingWidth="11.428571701049805" />
-      <JFXPasswordField fx:id="passwordTextField" layoutX="72.0" layoutY="199.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="密码" unFocusColor="#8aa4d6">
+      <JFXPasswordField fx:id="passwordTextField" layoutX="72.0" layoutY="199.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="%Password" unFocusColor="#8aa4d6">
          <font>
             <Font name="Yuanti SC Light" size="12.0" />
          </font>
       </JFXPasswordField>
-      <JFXCheckBox fx:id="rememberCheckBox" checkedColor="#5a8feb" layoutX="47.0" layoutY="253.0" text="记住我" textFill="#757778" unCheckedColor="#757778">
+      <JFXCheckBox fx:id="rememberCheckBox" checkedColor="#5a8feb" layoutX="47.0" layoutY="253.0" text="%RememberMe" textFill="#757778" unCheckedColor="#757778">
          <font>
             <Font name="Yuanti SC Bold" size="12.0" />
          </font>
@@ -42,7 +42,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXCheckBox>
-      <Label fx:id="skipLabel" layoutX="201.0" layoutY="254.0" onMouseClicked="#skipLabelMouseClicked" text="跳过登录" textFill="#757778" wrapText="true">
+      <Label fx:id="skipLabel" layoutX="201.0" layoutY="254.0" onMouseClicked="#skipLabelMouseClicked" text="%SkipLogin" textFill="#757778" wrapText="true">
          <font>
             <Font name="Yuanti SC Bold" size="12.0" />
          </font>
@@ -52,7 +52,7 @@
       </Label>
       <HBox alignment="CENTER" layoutX="40.0" layoutY="292.0" prefHeight="40.0" prefWidth="200.0">
          <children>
-            <JFXButton fx:id="loginButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#loginButtonClicked" prefHeight="40.0" prefWidth="220.0" styleClass="execute-btn" text="登录" textFill="WHITE">
+            <JFXButton fx:id="loginButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#loginButtonClicked" prefHeight="40.0" prefWidth="220.0" styleClass="execute-btn" text="%Login" textFill="WHITE">
                <font>
                   <Font name="Yuanti SC Bold" size="15.0" />
                </font>

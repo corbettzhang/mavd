@@ -14,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -67,6 +70,13 @@ public class SettingController extends AbstractController implements Initializab
     private JFXTextField downloadPath;
     private JFXButton chooseButton;
 
+    @FXML
+    private ImageView wordpressSettingImage;
+    @FXML
+    private ImageView cloudSettingImage;
+    @FXML
+    private ImageView otherSettingImage;
+
 
     public SettingController() {
     }
@@ -80,6 +90,10 @@ public class SettingController extends AbstractController implements Initializab
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         config = (Config) LocalCache.getInstance().get(Properties.CONFIG_KEY);
+
+        wordpressSettingImage.setImage(new Image("img/wordpress-simple.png"));
+        cloudSettingImage.setImage(new Image("img/cloud.png"));
+        otherSettingImage.setImage(new Image("img/project-hover-menu.png"));
 
         settingBody3HBox = loadSetting(Properties.MAIN_SETTING3_FXML_URL);
         settingBody2HBox = loadSetting(Properties.MAIN_SETTING2_FXML_URL);
@@ -190,7 +204,9 @@ public class SettingController extends AbstractController implements Initializab
     private HBox loadSetting(String checkSettingFxmlUrl) {
         InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(checkSettingFxmlUrl);
         try {
-            return new FXMLLoader().load(Objects.requireNonNull(is));
+            final FXMLLoader loader = new FXMLLoader();
+            loader.setResources(ResourceBundle.getBundle("mavd", Locale.getDefault()));
+            return loader.load(Objects.requireNonNull(is));
         } catch (IOException e) {
             e.printStackTrace();
         }

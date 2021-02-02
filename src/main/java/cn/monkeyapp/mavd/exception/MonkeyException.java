@@ -13,7 +13,7 @@ public class MonkeyException extends Exception {
     private final String message;
 
     /**
-     * Construct YoutubeDLException with a message
+     * Construct MonkeyException with a message
      *
      * @param message message
      */
@@ -22,7 +22,7 @@ public class MonkeyException extends Exception {
     }
 
     /**
-     * Construct YoutubeDLException from another exception
+     * Construct MonkeyException from another exception
      *
      * @param e Any exception
      */

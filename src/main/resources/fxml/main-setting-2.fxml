@@ -11,7 +11,7 @@
     <VBox alignment="TOP_RIGHT">
         <Label prefHeight="30.0" prefWidth="150.0" text="Label" visible="false" />
         <Label prefHeight="30.0" prefWidth="150.0" text="Label" visible="false" />
-      <Label alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="30.0" prefWidth="120.0" text="网址 : " textFill="#8a8888">
+      <Label alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="30.0" prefWidth="120.0" text="%ObjectUrl" textFill="#8a8888">
          <font>
             <Font name="Yuanti SC Bold" size="14.0" />
          </font>
@@ -19,7 +19,7 @@
             <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
          </VBox.margin>
       </Label>
-        <Label alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="30.0" prefWidth="120.0" text="Access Key : " textFill="#8a8888" VBox.vgrow="ALWAYS">
+        <Label alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="30.0" prefWidth="120.0" text="Access Key" textFill="#8a8888" VBox.vgrow="ALWAYS">
             <font>
                 <Font name="Yuanti SC Bold" size="14.0" />
             </font>
@@ -27,14 +27,14 @@
                 <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
             </VBox.margin>
         </Label>
-        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="120.0" text="Secret Key : " textFill="#8a8888" VBox.vgrow="ALWAYS">
+        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="120.0" text="Secret Key" textFill="#8a8888" VBox.vgrow="ALWAYS">
             <font>
                 <Font name="Yuanti SC Bold" size="13.0" />
             </font>
             <VBox.margin>
                 <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
             </VBox.margin></Label>
-      <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="120.0" text="Bucket : " textFill="#8a8888">
+      <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="120.0" text="Bucket" textFill="#8a8888">
          <font>
             <Font name="Yuanti SC Bold" size="13.0" />
          </font>

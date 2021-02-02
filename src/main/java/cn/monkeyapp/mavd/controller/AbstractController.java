@@ -12,7 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -127,12 +129,14 @@ public abstract class AbstractController {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setController(controller);
+//        Locale.setDefault(new Locale("en","EN"));
+        loader.setResources(ResourceBundle.getBundle("mavd", Locale.getDefault()));
         try {
             InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(url);
             Parent root = loader.load(Objects.requireNonNull(is, String.format("加载[%s]失败，请检查~ ", url)));
             LOGGER.log(Level.INFO, String.format("已加载[%s]", url));
             final Scene scene = new Scene(root);
-            final URL cssUrl = Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("css/stylesheet.css"), "加载stylesheet.css失败");
+            final URL cssUrl = Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("css/stylesheet_light.css"), "加载stylesheet.css失败");
             scene.getStylesheets().add(cssUrl.toExternalForm());
             stage.setScene(scene);
             stage.getIcons().add(new Image("img/logo.png"));

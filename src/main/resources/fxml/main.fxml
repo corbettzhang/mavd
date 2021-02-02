@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -58,15 +57,12 @@
                           <Insets bottom="10.0" top="10.0" />
                       </VBox.margin>
                      <children>
-                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
-                            <image>
-                                <Image url="@img/detail-project.png" />
-                            </image>
+                         <ImageView fx:id="listImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
                          <HBox.margin>
                             <Insets left="5.0" right="5.0" />
                          </HBox.margin>
                          </ImageView>
-                         <Label fx:id="listLabel" text="列表" textFill="#727070">
+                         <Label fx:id="listLabel" prefWidth="67.0" text="%List" textFill="#727070">
                              <HBox.margin>
                                  <Insets left="5.0" right="5.0" />
                              </HBox.margin>
@@ -93,15 +89,12 @@
                           <Insets bottom="10.0" top="10.0" />
                       </VBox.margin>
                      <children>
-                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
-                            <image>
-                                <Image url="@img/header-setting.png" />
-                            </image>
+                         <ImageView fx:id="settingImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
                          <HBox.margin>
                             <Insets left="5.0" right="5.0" />
                          </HBox.margin>
                          </ImageView>
-                         <Label fx:id="settingLabel" text="设置" textFill="#727070">
+                         <Label fx:id="settingLabel" prefWidth="67.0" text="%Setting" textFill="#727070">
                              <HBox.margin>
                                  <Insets left="5.0" right="5.0" />
                              </HBox.margin>
@@ -149,9 +142,6 @@
                                                   <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                   </cursor>
-                                           <image>
-                                              <Image url="@img/user-dropdown.png" />
-                                           </image>
                                               </ImageView>
                                           </children>
                                        </HBox>
