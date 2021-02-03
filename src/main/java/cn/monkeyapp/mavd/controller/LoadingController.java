@@ -146,7 +146,7 @@ public class LoadingController extends AbstractController implements Initializab
     public void initialize(URL location, ResourceBundle resources) {
         img1.setImage(new Image("img/time-machine.png"));
         img2.setImage(new Image("img/time-machine.png"));
-        img4.setImage(new Image("img/time-machine.png"));
+        img3.setImage(new Image("img/time-machine.png"));
         img4.setImage(new Image("img/time-machine.png"));
         img5.setImage(new Image("img/time-machine.png"));
     }

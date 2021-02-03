@@ -75,7 +75,6 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     private ImageView settingImage;
 
-
     @FXML
     private HBox mainHBox;
 
