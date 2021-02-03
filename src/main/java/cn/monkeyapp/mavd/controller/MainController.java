@@ -115,7 +115,7 @@ public class MainController extends AbstractController implements Initializable 
             final UserController userController = new UserController();
             final Stage stage = userController.loadStage(new Stage(), Properties.USER_FXML_URL);
             stage.setResizable(false);
-            stage.setOnCloseRequest(event -> userController.close(userController.getClass().getName()));
+            stage.setOnCloseRequest(event -> userController.removeStage(userController.getClass().getName()));
             stage.show();
 
         });

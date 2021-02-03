@@ -25,6 +25,7 @@ public class NewController extends AbstractController implements Initializable {
 
     private static final Logger LOGGER = LogManager.getLogger(NewController.class);
     private static final SqliteService sqliteService = new SqliteServiceImpl();
+    private ResourceBundle resourceBundle;
 
     @FXML
     private JFXTextField urlTextField;
@@ -51,12 +52,12 @@ public class NewController extends AbstractController implements Initializable {
 
     @Override
     protected String stageTitle() {
-        return "新建任务";
+        return resourceBundle.getString("NewTask");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        resourceBundle = resources;
     }
 
     public void createButtonOnAction(ActionEvent actionEvent) {

@@ -33,9 +33,10 @@ import java.util.logging.Logger;
 public class UserController extends AbstractController implements Initializable {
 
     private static final Logger LOGGER = LogManager.getLogger(UserController.class);
+    private ResourceBundle resourceBundle;
 
     @FXML
-    private Pane pane;
+    private Pane root;
     @FXML
     private ImageView userImage;
     @FXML
@@ -43,8 +44,11 @@ public class UserController extends AbstractController implements Initializable 
     @FXML
     private Label emailLabel;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        resourceBundle = resources;
+
         Session session = (Session) LocalCache.getInstance().get(Properties.SESSION_KEY);
         Config config = (Config) LocalCache.getInstance().get(Properties.CONFIG_KEY);
         try {
@@ -86,6 +90,6 @@ public class UserController extends AbstractController implements Initializable 
 
     @Override
     protected String stageTitle() {
-        return "我的信息";
+        return resourceBundle.getString("MyInformation");
     }
 }

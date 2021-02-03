@@ -60,7 +60,7 @@ public class LoginController extends AbstractController implements Initializable
     private static final LoginService loginService = new LoginServiceImpl();
     private static final XmlService xmlService = new XmlServiceImpl();
     private Session session;
-    private ResourceBundle bundle;
+    private ResourceBundle resourceBundle;
 
     @FXML
     private Button loginButton;
@@ -94,7 +94,7 @@ public class LoginController extends AbstractController implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        bundle = resources;
+        this.resourceBundle = resources;
         session = xmlService.getSession();
 
         InputStream stream;

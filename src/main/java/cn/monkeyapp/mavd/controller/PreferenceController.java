@@ -1,10 +1,10 @@
 package cn.monkeyapp.mavd.controller;
 
 import cn.monkeyapp.mavd.cache.LocalCache;
+import cn.monkeyapp.mavd.common.GlobalKeyListener;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
-import cn.monkeyapp.mavd.common.GlobalKeyListener;
 import cn.monkeyapp.mavd.entity.Preference;
 import cn.monkeyapp.mavd.service.XmlService;
 import cn.monkeyapp.mavd.service.impl.XmlServiceImpl;
@@ -47,6 +47,7 @@ public class PreferenceController extends AbstractController implements Initiali
     private static final Logger LOGGER = LogManager.getLogger(PreferenceController.class);
     private static final XmlService xmlService = new XmlServiceImpl();
     private Preference preference;
+    private ResourceBundle resourceBundle;
 
     /**
      * 对勾图标key
@@ -124,6 +125,9 @@ public class PreferenceController extends AbstractController implements Initiali
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        this.resourceBundle = resources;
+
         this.preference = xmlService.getPreference();
 
         final ToggleGroup proxy = new ToggleGroup();
@@ -285,7 +289,7 @@ public class PreferenceController extends AbstractController implements Initiali
                         proxy = new Proxy(Proxy.Type.SOCKS, address);
                         Socket socket = new Socket(proxy);
                         //服务器的ip及地址
-                        socket.connect(new InetSocketAddress("46.182.174.69", 80),2500);
+                        socket.connect(new InetSocketAddress("46.182.174.69", 80), 2500);
                         socket.close();
                         return true;
                     }
@@ -376,7 +380,7 @@ public class PreferenceController extends AbstractController implements Initiali
 
     @Override
     protected String stageTitle() {
-        return "偏好设置";
+        return resourceBundle.getString("Preference");
     }
 
 }
