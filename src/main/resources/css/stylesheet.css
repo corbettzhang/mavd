@@ -1,0 +1,64 @@
+.scroll-pane {
+    -fx-background-color: #fff;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .track, .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow,
+.scroll-bar:horizontal .increment-arrow,
+.scroll-bar:horizontal .decrement-arrow
+{
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb
+{
+    -fx-background-color: derive(black, 90%);
+    -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+.sidebar {
+    -fx-background-color: #353535;
+    -fx-opacity: 0.8;
+}
+
+.sidebar-btns {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8px;
+}
+
+.sidebar-btns:hover {
+    -fx-background-color: #FDFDFE;
+    -fx-background-radius: 8px;
+    -fx-text-fill: derive(black, 90%);
+}
+
+.execute-btn {
+    -fx-background-color: #397DFF;
+    -fx-background-radius: 10px;
+}
+
+
+.loading-button {
+    -fx-background-color: #6666ff;
+    -fx-opacity: 0.8;
+    -fx-background-radius: 20px;
+}
+
+.loading-button:hover {
+    -fx-background-color: #6666ff;
+    -fx-opacity: 1;
+    -fx-background-radius: 20px;
+}

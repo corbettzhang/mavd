@@ -13,7 +13,7 @@
     <VBox alignment="TOP_RIGHT">
         <Label prefHeight="30.0" prefWidth="150.0" text="Label" visible="false" />
         <Label prefHeight="30.0" prefWidth="150.0" text="Label" visible="false" />
-        <Label alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="30.0" prefWidth="120.0" text="%OnlyDownload" textFill="#8a8888" VBox.vgrow="ALWAYS">
+        <Label alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="30.0" prefWidth="120.0" styleClass="label-font" text="%OnlyDownload" textFill="#8a8888" VBox.vgrow="ALWAYS">
             <font>
                 <Font name="Yuanti SC Bold" size="14.0" />
             </font>
@@ -21,7 +21,7 @@
                 <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
             </VBox.margin>
         </Label>
-        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="120.0" text="%DownloadPath" textFill="#8a8888" VBox.vgrow="ALWAYS">
+        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="120.0" styleClass="label-font" text="%DownloadPath" textFill="#8a8888" VBox.vgrow="ALWAYS">
             <font>
                 <Font name="Yuanti SC Bold" size="13.0" />
             </font>
@@ -41,12 +41,12 @@
                 <Font name="Yuanti SC Light" size="13.0" />
             </font>
         </JFXTextField>
-      <JFXCheckBox fx:id="onlyDownload" checkedColor="#da903b" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #fff;">
+      <JFXCheckBox fx:id="onlyDownload" checkedColor="#da903b" prefHeight="30.0" prefWidth="300.0" styleClass="label-font">
          <VBox.margin>
             <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
          </VBox.margin>
       </JFXCheckBox>
-        <JFXTextField fx:id="downloadPath" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #fff;" unFocusColor="#e8e4e4" VBox.vgrow="ALWAYS">
+        <JFXTextField fx:id="downloadPath" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #fff;" styleClass="text-field-font" unFocusColor="#e8e4e4" VBox.vgrow="ALWAYS">
             <font>
                 <Font name="Yuanti SC Light" size="13.0" />
             </font>
@@ -54,7 +54,7 @@
             <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
          </VBox.margin>
         </JFXTextField>
-      <JFXButton fx:id="chooseButton" text="%Choose">
+      <JFXButton fx:id="chooseButton" ripplerFill="#c6b7b7" styleClass="label-font" text="%Choose">
          <font>
             <Font name="Yuanti SC Bold" size="13.0" />
          </font>

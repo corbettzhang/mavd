@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -23,7 +24,7 @@ public class StageHelper {
     private static final Map<String, Stage> STAGE_MAP = new ConcurrentHashMap<>();
 
     /**
-     * 管理所有Stage
+     * 添加stage到map中
      *
      * @param stage stage
      */
@@ -32,7 +33,16 @@ public class StageHelper {
     }
 
     /**
-     * 管理所有Stage
+     * 返回所有stage
+     *
+     * @return stage集合
+     */
+    public static Collection<Stage> getAllStage() {
+        return STAGE_MAP.values();
+    }
+
+    /**
+     * 返回一个指定的stage
      *
      * @param key key
      */

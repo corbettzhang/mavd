@@ -3,6 +3,7 @@ package cn.monkeyapp.mavd.controller;
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.GlobalKeyListener;
 import cn.monkeyapp.mavd.common.Properties;
+import cn.monkeyapp.mavd.common.StyleManage;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
 import cn.monkeyapp.mavd.entity.Preference;
@@ -151,7 +152,15 @@ public class PreferenceController extends AbstractController implements Initiali
             auto.setSelected(true);
         }
         style.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            preference.setStyle((Integer) newValue.getUserData());
+            final Integer userData = (Integer) newValue.getUserData();
+            if (userData == 1) {
+                StyleManage.updateStyle(StyleManage.DARK_CSS_URL);
+            } else if (userData == 2) {
+                StyleManage.updateStyle(StyleManage.LIGHT_CSS_URL);
+            } else {
+                // ignore
+            }
+            preference.setStyle(userData);
             savePreference();
         });
 
@@ -177,8 +186,7 @@ public class PreferenceController extends AbstractController implements Initiali
             proxySetting.setVisible(false);
         }
 
-        conventionHBox.setStyle("-fx-background-color: rgb(244,244,244)");
-        networkHBox.setStyle("-fx-background-color: rgb(255,255,255)");
+        updateHBox(conventionHBox, networkHBox, shortcutsHBox);
         conventionPane.setVisible(true);
         networkPane.setVisible(false);
         shortcutsPane.setVisible(false);
@@ -187,9 +195,7 @@ public class PreferenceController extends AbstractController implements Initiali
 
     @FXML
     private void conventionHBoxMouseClicked(MouseEvent mouseEvent) {
-        conventionHBox.setStyle("-fx-background-color: rgb(244,244,244)");
-        networkHBox.setStyle("-fx-background-color: rgb(255,255,255)");
-        shortcutsHBox.setStyle("-fx-background-color: rgb(255,255,255)");
+        updateHBox(conventionHBox, networkHBox, shortcutsHBox);
         conventionPane.setVisible(true);
         networkPane.setVisible(false);
         shortcutsPane.setVisible(false);
@@ -197,9 +203,7 @@ public class PreferenceController extends AbstractController implements Initiali
 
     @FXML
     private void networkHBoxMouseClicked(MouseEvent mouseEvent) {
-        networkHBox.setStyle("-fx-background-color: rgb(244,244,244)");
-        conventionHBox.setStyle("-fx-background-color: rgb(255,255,255)");
-        shortcutsHBox.setStyle("-fx-background-color: rgb(255,255,255)");
+        updateHBox(networkHBox, conventionHBox, shortcutsHBox);
         conventionPane.setVisible(false);
         networkPane.setVisible(true);
         shortcutsPane.setVisible(false);
@@ -207,12 +211,17 @@ public class PreferenceController extends AbstractController implements Initiali
 
     @FXML
     private void shortcutsHBoxMouseClicked(MouseEvent mouseEvent) {
-        shortcutsHBox.setStyle("-fx-background-color: rgb(244,244,244)");
-        conventionHBox.setStyle("-fx-background-color: rgb(255,255,255)");
-        networkHBox.setStyle("-fx-background-color: rgb(255,255,255)");
+        updateHBox(shortcutsHBox, networkHBox, conventionHBox);
         conventionPane.setVisible(false);
         networkPane.setVisible(false);
         shortcutsPane.setVisible(true);
+    }
+
+    private void updateHBox(HBox h1, HBox h2, HBox h3) {
+        h1.getStyleClass().remove("setting-background-hover");
+        h1.getStyleClass().add("setting-background-hover");
+        h2.getStyleClass().remove("setting-background-hover");
+        h3.getStyleClass().remove("setting-background-hover");
     }
 
     @FXML

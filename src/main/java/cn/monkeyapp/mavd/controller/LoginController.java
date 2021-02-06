@@ -220,7 +220,9 @@ public class LoginController extends AbstractController implements Initializable
             Platform.runLater(() -> {
                 final MainController mainController = new MainController();
                 Stage stage = mainController.loadStage(new Stage(), Properties.MAIN_FXML_URL);
-                MySystemTray.getInstance().enableTray(stage, mainController);
+                if (!OsInfoUtils.isLinux()) {
+                    MySystemTray.getInstance().enableTray(stage, mainController);
+                }
                 stage.show();
                 stage.toFront();
             });

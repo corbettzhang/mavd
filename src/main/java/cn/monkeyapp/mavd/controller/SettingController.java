@@ -41,8 +41,8 @@ public class SettingController extends AbstractController implements Initializab
 
     private static final Logger LOGGER = LogManager.getLogger(SettingController.class);
     private static final XmlService xmlService = new XmlServiceImpl();
-
     private Config config;
+    private ResourceBundle resourceBundle;
 
     //-------------------------------设置页面-------------------------------
     @FXML
@@ -60,6 +60,13 @@ public class SettingController extends AbstractController implements Initializab
     @FXML
     private VBox root;
 
+    @FXML
+    private ImageView wordpressSettingImage;
+    @FXML
+    private ImageView cloudSettingImage;
+    @FXML
+    private ImageView otherSettingImage;
+
     private JFXTextField objectHost;
     private JFXTextField accessKey;
     private JFXTextField secretKey;
@@ -70,27 +77,111 @@ public class SettingController extends AbstractController implements Initializab
     private JFXTextField downloadPath;
     private JFXButton chooseButton;
 
-    @FXML
-    private ImageView wordpressSettingImage;
-    @FXML
-    private ImageView cloudSettingImage;
-    @FXML
-    private ImageView otherSettingImage;
-
-
-    public SettingController() {
-    }
 
     @Override
     protected Stage loadStage(Stage primaryStage, String listFxmlUrl) {
         return null;
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        this.resourceBundle = resources;
+
         config = (Config) LocalCache.getInstance().get(Properties.CONFIG_KEY);
 
+        loadSetting();
+
+        updateSettingHBox(setting1HBox, setting2HBox, setting3HBox);
+        if (root.getChildren().size() == 3) {
+            root.getChildren().set(1, settingBody1HBox);
+        } else {
+            root.getChildren().add(1, settingBody1HBox);
+        }
+    }
+
+    @FXML
+    private void saveButtonAction(ActionEvent actionEvent) {
+        // 保存设置信息
+        config.setObjectHost(objectHost.getText());
+        config.setAccessKey(accessKey.getText());
+        config.setSecretKey(secretKey.getText());
+        config.setBucket(bucket.getText());
+        config.setWebSite(webSite.getText());
+        config.setUrl(url.getText());
+        config.setDownloadPath(downloadPath.getText());
+        config.setOnlyDownload(onlyDownload.isSelected());
+        xmlService.saveConfig(config);
+        LocalCache.getInstance().add(config, Properties.CONFIG_KEY);
+        LOGGER.log(Level.INFO, "更新配置信息成功，" + config.toString());
+        showAlert(resourceBundle.getString("SettingAlertInfo"), ((JFXButton) actionEvent.getSource()).getScene().getWindow());
+    }
+
+    public static void showAlert(String content, Window window) {
+        Platform.runLater(() -> {
+            JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setBody(new Label(content));
+            JFXAlert<Void> alert = new JFXAlert<>(window);
+            alert.setOverlayClose(true);
+            alert.setAnimation(JFXAlertAnimation.CENTER_ANIMATION);
+            alert.setContent(layout);
+            alert.initModality(Modality.NONE);
+            alert.show();
+        });
+    }
+
+    public void setting3HBoxMouseClicked(MouseEvent mouseEvent) {
+        updateSettingHBox(setting3HBox, setting2HBox, setting1HBox);
+        if (root.getChildren().size() == 3) {
+            root.getChildren().set(1, settingBody3HBox);
+        } else {
+            root.getChildren().add(1, settingBody3HBox);
+        }
+    }
+
+    public void setting2HBoxMouseClicked(MouseEvent mouseEvent) {
+        updateSettingHBox(setting2HBox, setting1HBox, setting3HBox);
+        if (root.getChildren().size() == 3) {
+            root.getChildren().set(1, settingBody2HBox);
+        } else {
+            root.getChildren().add(1, settingBody2HBox);
+        }
+    }
+
+    public void setting1HBoxMouseClicked(MouseEvent mouseEvent) {
+        updateSettingHBox(setting1HBox, setting2HBox, setting3HBox);
+        if (root.getChildren().size() == 3) {
+            root.getChildren().set(1, settingBody1HBox);
+        } else {
+            root.getChildren().add(1, settingBody1HBox);
+        }
+    }
+
+    private void updateSettingHBox(HBox h1, HBox h2, HBox h3) {
+        h1.getStyleClass().remove("setting-background-hover");
+        h1.getStyleClass().add("setting-background-hover");
+        h2.getStyleClass().remove("setting-background-hover");
+        h3.getStyleClass().remove("setting-background-hover");
+    }
+
+    private HBox loadSetting(String checkSettingFxmlUrl) {
+        InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(checkSettingFxmlUrl);
+        try {
+            final FXMLLoader loader = new FXMLLoader();
+            loader.setResources(ResourceBundle.getBundle("mavd", Locale.getDefault()));
+            return loader.load(Objects.requireNonNull(is));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    protected String stageTitle() {
+        return null;
+    }
+
+    private void loadSetting() {
         wordpressSettingImage.setImage(new Image("img/wordpress-simple.png"));
         cloudSettingImage.setImage(new Image("img/cloud.png"));
         otherSettingImage.setImage(new Image("img/project-hover-menu.png"));
@@ -127,95 +218,6 @@ public class SettingController extends AbstractController implements Initializab
                 downloadPath.setText(file1.getAbsolutePath());
             }
         });
-
-        setting1HBox.setStyle("-fx-background-color: bisque");
-        setting2HBox.setStyle("-fx-background-color: #FFFFFF");
-        setting3HBox.setStyle("-fx-background-color: #FFFFFF");
-        if (root.getChildren().size() == 3) {
-            root.getChildren().set(1, settingBody1HBox);
-        } else {
-            root.getChildren().add(1, settingBody1HBox);
-        }
-    }
-
-    // 保存设置信息
-    @FXML
-    private void saveButtonAction(ActionEvent actionEvent) {
-        config.setObjectHost(objectHost.getText());
-        config.setAccessKey(accessKey.getText());
-        config.setSecretKey(secretKey.getText());
-        config.setBucket(bucket.getText());
-        config.setWebSite(webSite.getText());
-        config.setUrl(url.getText());
-        config.setDownloadPath(downloadPath.getText());
-        config.setOnlyDownload(onlyDownload.isSelected());
-        xmlService.saveConfig(config);
-        LocalCache.getInstance().add(config, Properties.CONFIG_KEY);
-        LOGGER.log(Level.INFO, "更新配置信息成功，" + config.toString());
-        showAlert("配置信息已更新. ", ((JFXButton) actionEvent.getSource()).getScene().getWindow());
-    }
-
-    public static void showAlert(String content, Window window) {
-        Platform.runLater(() -> {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            layout.setBody(new Label(content));
-            JFXAlert<Void> alert = new JFXAlert<>(window);
-            alert.setOverlayClose(true);
-            alert.setAnimation(JFXAlertAnimation.CENTER_ANIMATION);
-            alert.setContent(layout);
-            alert.initModality(Modality.NONE);
-            alert.show();
-        });
-    }
-
-    public void setting3HBoxMouseClicked(MouseEvent mouseEvent) {
-        setting3HBox.setStyle("-fx-background-color: bisque");
-        setting2HBox.setStyle("-fx-background-color: #FFFFFF");
-        setting1HBox.setStyle("-fx-background-color: #FFFFFF");
-        if (root.getChildren().size() == 3) {
-            root.getChildren().set(1, settingBody3HBox);
-        } else {
-            root.getChildren().add(1, settingBody3HBox);
-        }
-    }
-
-    public void setting2HBoxMouseClicked(MouseEvent mouseEvent) {
-        setting2HBox.setStyle("-fx-background-color: bisque");
-        setting3HBox.setStyle("-fx-background-color: #FFFFFF");
-        setting1HBox.setStyle("-fx-background-color: #FFFFFF");
-        if (root.getChildren().size() == 3) {
-            root.getChildren().set(1, settingBody2HBox);
-        } else {
-            root.getChildren().add(1, settingBody2HBox);
-        }
-    }
-
-    public void setting1HBoxMouseClicked(MouseEvent mouseEvent) {
-        setting1HBox.setStyle("-fx-background-color: bisque");
-        setting2HBox.setStyle("-fx-background-color: #FFFFFF");
-        setting3HBox.setStyle("-fx-background-color: #FFFFFF");
-        if (root.getChildren().size() == 3) {
-            root.getChildren().set(1, settingBody1HBox);
-        } else {
-            root.getChildren().add(1, settingBody1HBox);
-        }
-    }
-
-    private HBox loadSetting(String checkSettingFxmlUrl) {
-        InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(checkSettingFxmlUrl);
-        try {
-            final FXMLLoader loader = new FXMLLoader();
-            loader.setResources(ResourceBundle.getBundle("mavd", Locale.getDefault()));
-            return loader.load(Objects.requireNonNull(is));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    protected String stageTitle() {
-        return "list";
     }
 
 }

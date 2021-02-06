@@ -14,8 +14,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" styleClass="parent" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-    <HBox fx:id="conventionHBox" alignment="CENTER" focusTraversable="true" layoutX="7.0" layoutY="14.0" onMouseClicked="#conventionHBoxMouseClicked" prefHeight="30.0" prefWidth="190.0">
+<Pane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" styleClass="base-background" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox fx:id="conventionHBox" alignment="CENTER" focusTraversable="true" layoutX="7.0" layoutY="14.0" onMouseClicked="#conventionHBoxMouseClicked" prefHeight="30.0" prefWidth="190.0" styleClass="setting-btns">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
@@ -24,9 +24,9 @@
                 <Insets right="10.0" />
             </HBox.margin>
         </FontAwesomeIconView>
-        <Label text="%General" />
+        <Label styleClass="label-font" text="%General" />
     </HBox>
-    <HBox fx:id="networkHBox" alignment="CENTER" focusTraversable="true" layoutX="206.0" layoutY="14.0" onMouseClicked="#networkHBoxMouseClicked" prefHeight="30.0" prefWidth="190.0">
+    <HBox fx:id="networkHBox" alignment="CENTER" focusTraversable="true" layoutX="206.0" layoutY="14.0" onMouseClicked="#networkHBoxMouseClicked" prefHeight="30.0" prefWidth="190.0" styleClass="setting-btns">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
@@ -35,9 +35,9 @@
                 <Insets right="10.0" />
             </HBox.margin>
         </FontAwesomeIconView>
-        <Label text="%Network" />
+        <Label styleClass="label-font" text="%Network" />
     </HBox>
-   <HBox fx:id="shortcutsHBox" alignment="CENTER" focusTraversable="true" layoutX="405.0" layoutY="14.0" onMouseClicked="#shortcutsHBoxMouseClicked" prefHeight="30.0" prefWidth="190.0">
+   <HBox fx:id="shortcutsHBox" alignment="CENTER" focusTraversable="true" layoutX="405.0" layoutY="14.0" onMouseClicked="#shortcutsHBoxMouseClicked" prefHeight="30.0" prefWidth="190.0" styleClass="setting-btns">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
@@ -47,76 +47,85 @@
                <Insets right="10.0" />
             </HBox.margin>
          </FontAwesomeIconView>
-         <Label text="%Shortcut" />
+         <Label styleClass="label-font" text="%Shortcut" />
       </children>
    </HBox>
-    <ScrollPane fx:id="conventionPane" hbarPolicy="NEVER" layoutY="60.0" prefHeight="330.0" prefWidth="600.0" style="-fx-background-color: #fff;">
-        <Pane focusTraversable="true" prefHeight="325.0" prefWidth="600.0" style="-fx-background-color: #fff;">
-            <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="20.0" prefHeight="30.0" prefWidth="90.0" text="%BackgroundTheme">
+    <ScrollPane fx:id="conventionPane" hbarPolicy="NEVER" layoutY="60.0" prefHeight="330.0" prefWidth="600.0" styleClass="base-background">
+        <Pane focusTraversable="true" prefHeight="328.0" prefWidth="600.0" styleClass="base-background">
+            <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="20.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%BackgroundTheme">
                 <font>
                     <Font name="Yuanti SC Light" size="13.0" />
                 </font>
             </Label>
-            <JFXRadioButton fx:id="lightness" layoutX="272.0" layoutY="20.0" prefHeight="30.0" prefWidth="90.0" text="%Light" />
-            <JFXRadioButton fx:id="darkness" layoutX="272.0" layoutY="50.0" prefHeight="30.0" prefWidth="90.0" text="%Dark" />
-            <JFXRadioButton fx:id="auto" layoutX="272.0" layoutY="80.0" prefHeight="30.0" prefWidth="90.0" text="%Auto" />
-         <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="130.0" prefHeight="30.0" prefWidth="90.0" text="%GeneralSetting">
+            <JFXRadioButton fx:id="lightness" layoutX="272.0" layoutY="20.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%Light" />
+            <JFXRadioButton fx:id="darkness" layoutX="272.0" layoutY="50.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%Dark">
+            <font>
+               <Font name="Yuanti SC Regular" size="13.0" />
+            </font></JFXRadioButton>
+            <JFXRadioButton fx:id="auto" layoutX="272.0" layoutY="80.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%Auto">
+            <font>
+               <Font name="Yuanti SC Regular" size="13.0" />
+            </font></JFXRadioButton>
+         <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="130.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%GeneralSetting">
             <font>
                <Font name="Yuanti SC Light" size="13.0" />
             </font>
          </Label>
-         <JFXCheckBox fx:id="enableNotification" checkedColor="#cd813b" layoutX="272.0" layoutY="130.0" onAction="#enableNotificationAction" prefHeight="30.0" prefWidth="90.0" text="%EnableTheSystemNotification" />
-            <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="180.0" prefHeight="30.0" prefWidth="90.0" text="%Upgrade">
+         <JFXCheckBox fx:id="enableNotification" checkedColor="#cd813b" layoutX="272.0" layoutY="130.0" onAction="#enableNotificationAction" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%EnableTheSystemNotification" />
+            <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="180.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%Upgrade">
                 <font>
                     <Font name="Yuanti SC Light" size="13.0" />
                 </font>
             </Label>
-         <ComboBox fx:id="update" layoutX="272.0" layoutY="180.0" onAction="#updateAction" prefWidth="120.0" />
+         <ComboBox fx:id="update" layoutX="272.0" layoutY="180.0" onAction="#updateAction" prefWidth="120.0" styleClass="label-font" />
         </Pane>
     </ScrollPane>
-   <ScrollPane fx:id="shortcutsPane" hbarPolicy="NEVER" layoutY="60.0" prefHeight="330.0" prefWidth="600.0" style="-fx-background-color: #fff;" visible="false">
+   <ScrollPane fx:id="shortcutsPane" hbarPolicy="NEVER" layoutY="60.0" prefHeight="330.0" prefWidth="600.0" styleClass="base-background" visible="false">
       <content>
-         <Pane focusTraversable="true" prefHeight="325.0" prefWidth="600.0" style="-fx-background-color: #fff;">
+         <Pane focusTraversable="true" prefHeight="328.0" prefWidth="600.0" styleClass="base-background">
             <children>
-               <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="20.0" prefHeight="30.0" prefWidth="90.0" text="%ShortcutSetting">
+               <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="20.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%ShortcutSetting">
                   <font>
                      <Font name="Yuanti SC Light" size="13.0" />
                   </font>
                </Label>
-               <JFXCheckBox fx:id="enableShortcuts" checkedColor="#cd813b" layoutX="272.0" layoutY="20.0" onAction="#enableShortcutsAction" prefHeight="30.0" prefWidth="90.0" text="%EnableTheSystemShortcut" />
+               <JFXCheckBox fx:id="enableShortcuts" checkedColor="#cd813b" layoutX="272.0" layoutY="20.0" onAction="#enableShortcutsAction" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%EnableTheSystemShortcut" />
             </children>
          </Pane>
       </content>
    </ScrollPane>
-    <Pane fx:id="networkPane" layoutY="60.0" prefHeight="330.0" prefWidth="600.0" style="-fx-background-color: #fff;" visible="false">
-        <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="21.0" prefHeight="30.0" prefWidth="90.0" text="%ProxySetting">
+    <Pane fx:id="networkPane" layoutY="60.0" prefHeight="330.0" prefWidth="600.0" styleClass="base-background" visible="false">
+        <Label alignment="CENTER_RIGHT" layoutX="132.0" layoutY="21.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%ProxySetting">
             <font>
                 <Font name="Yuanti SC Light" size="13.0" />
             </font>
         </Label>
-        <JFXRadioButton fx:id="useProxyRadioButton" focusTraversable="false" layoutX="272.0" layoutY="21.0" onAction="#useProxyRadioButtonAction" prefHeight="30.0" prefWidth="90.0" text="%EnableProxy" />
-        <JFXRadioButton fx:id="unusedProxyRadioButton" focusTraversable="false" layoutX="272.0" layoutY="51.0" onAction="#unusedProxyRadioButtonAction" prefHeight="30.0" prefWidth="90.0" text="%DisableProxy" />
-        <Pane fx:id="proxySetting" layoutY="92.0" prefHeight="260.0" prefWidth="600.0" style="-fx-background-color: #fff;">
-            <Label alignment="CENTER_RIGHT" layoutX="210.0" layoutY="14.0" prefHeight="30.0" prefWidth="90.0" text="%ProxyType">
+        <JFXRadioButton fx:id="useProxyRadioButton" focusTraversable="false" layoutX="272.0" layoutY="21.0" onAction="#useProxyRadioButtonAction" prefHeight="30.0" styleClass="label-font" text="%EnableProxy">
+         <font>
+            <Font name="Yuanti SC Regular" size="13.0" />
+         </font></JFXRadioButton>
+        <JFXRadioButton fx:id="unusedProxyRadioButton" focusTraversable="false" layoutX="272.0" layoutY="51.0" onAction="#unusedProxyRadioButtonAction" prefHeight="30.0" styleClass="label-font" text="%DisableProxy" />
+        <Pane fx:id="proxySetting" layoutY="92.0" prefHeight="260.0" prefWidth="600.0">
+            <Label alignment="CENTER_RIGHT" layoutX="210.0" layoutY="14.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%ProxyType">
                 <font>
                     <Font name="Yuanti SC Light" size="13.0" />
                 </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="210.0" layoutY="44.0" prefHeight="30.0" prefWidth="90.0" text="%ProxyAddress">
+            <Label alignment="CENTER_RIGHT" layoutX="210.0" layoutY="44.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%ProxyAddress">
                 <font>
                     <Font name="Yuanti SC Light" size="13.0" />
                 </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="210.0" layoutY="74.0" prefHeight="30.0" prefWidth="90.0" text="%ProxyPort">
+            <Label alignment="CENTER_RIGHT" layoutX="210.0" layoutY="74.0" prefHeight="30.0" prefWidth="90.0" styleClass="label-font" text="%ProxyPort">
                 <font>
                     <Font name="Yuanti SC Light" size="13.0" />
                 </font>
             </Label>
-            <JFXButton fx:id="testConnect" focusTraversable="false" layoutX="278.0" layoutY="130.0" onAction="#testConnectOnAction" text="%ProxyTestConnection" />
-            <JFXButton fx:id="saveProxy" focusTraversable="false" layoutX="374.0" layoutY="130.0" onAction="#saveProxyOnAction" text="%ProxySave" />
-            <JFXTextField fx:id="proxyAddress" layoutX="313.0" layoutY="46.0" />
-            <JFXTextField fx:id="proxyPort" layoutX="313.0" layoutY="76.0" />
-         <ComboBox fx:id="proxyType" layoutX="313.0" layoutY="16.0" visibleRowCount="3" />
+            <JFXButton fx:id="testConnect" focusTraversable="false" layoutX="278.0" layoutY="130.0" onAction="#testConnectOnAction" styleClass="label-font" text="%ProxyTestConnection" />
+            <JFXButton fx:id="saveProxy" focusTraversable="false" layoutX="374.0" layoutY="130.0" onAction="#saveProxyOnAction" styleClass="label-font" text="%ProxySave" />
+            <JFXTextField fx:id="proxyAddress" layoutX="313.0" layoutY="46.0" styleClass="label-font" />
+            <JFXTextField fx:id="proxyPort" layoutX="313.0" layoutY="76.0" styleClass="label-font" />
+         <ComboBox fx:id="proxyType" layoutX="313.0" layoutY="16.0" styleClass="label-font" visibleRowCount="3" />
         </Pane>
     </Pane>
     <HBox fx:id="message" alignment="CENTER" layoutX="250.0" layoutY="140.0" opacity="0.63" style="-fx-background-color: #111; -fx-background-radius: 10px;" visible="false">
@@ -124,7 +133,7 @@
          <HBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </HBox.margin></FontAwesomeIconView>
-        <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" text="设置已更新">
+        <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="label-font" text="设置已更新">
          <HBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </HBox.margin></Label>
