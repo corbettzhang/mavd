@@ -1,6 +1,6 @@
 package cn.monkeyapp.mavd.controller;
 
-import cn.monkeyapp.mavd.common.StyleManage;
+import cn.monkeyapp.mavd.common.StyleManager;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.StageHelper;
 import javafx.fxml.FXMLLoader;
@@ -85,6 +85,20 @@ public abstract class AbstractController {
     }
 
     /**
+     * 打开指定窗口，其他窗口关闭
+     */
+    protected void removeOtherStage(String key) {
+        StageHelper.removeOtherStage(key);
+    }
+
+    /**
+     * 退出程序
+     */
+    protected void exit() {
+        StageHelper.exit();
+    }
+
+    /**
      * 抽象方法，用于子类对其他类提供创建Stage的功能
      *
      * @param primaryStage stage
@@ -136,7 +150,7 @@ public abstract class AbstractController {
             Parent root = loader.load(Objects.requireNonNull(is, String.format("加载[%s]失败，请检查~ ", url)));
             LOGGER.log(Level.INFO, String.format("已加载[%s]", url));
             final Scene scene = new Scene(root);
-            StyleManage.loadStageStyle(scene);
+            StyleManager.loadStageStyle(scene);
             stage.setScene(scene);
             stage.getIcons().add(new Image("img/logo.png"));
             stage.setTitle(stageTitle());

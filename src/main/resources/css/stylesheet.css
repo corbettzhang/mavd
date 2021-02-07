@@ -15,15 +15,13 @@
 .scroll-bar:vertical .increment-arrow,
 .scroll-bar:vertical .decrement-arrow,
 .scroll-bar:horizontal .increment-arrow,
-.scroll-bar:horizontal .decrement-arrow
-{
+.scroll-bar:horizontal .decrement-arrow {
     -fx-shape: "";
     -fx-padding: 0;
 }
 
 .scroll-bar:vertical .thumb,
-.scroll-bar:horizontal .thumb
-{
+.scroll-bar:horizontal .thumb {
     -fx-background-color: derive(black, 90%);
     -fx-background-insets: 0, 0, 0;
     -fx-background-radius: 2em;

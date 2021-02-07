@@ -30,7 +30,7 @@
             <Insets bottom="4.0" left="10.0" right="10.0" top="6.0" />
          </HBox.margin>
         </JFXButton>
-        <JFXTextField fx:id="searchField" focusColor="WHITE" promptText="%Search" styleClass="text-field-font" unFocusColor="WHITE">
+        <JFXTextField fx:id="searchField" focusColor="WHITE" promptText="%Search" style="-fx-background-color: #fff;" styleClass="text-field-font" unFocusColor="WHITE">
             <font>
                 <Font name="Yuanti SC Light" size="13.0" />
             </font>

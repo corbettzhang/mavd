@@ -28,7 +28,7 @@
                         <Font name="Yuanti SC Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="versionLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" text="v0.0.1" textFill="#5b5858">
+                  <Label fx:id="versionLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" styleClass="label-font" text="v0.0.1" textFill="#5b5858">
                      <font>
                         <Font name="Yuanti SC Bold" size="15.0" />
                      </font>

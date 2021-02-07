@@ -209,8 +209,8 @@ public class LoginController extends AbstractController implements Initializable
 
     }
 
-    // 当退出登录时，stage被保存在map容器中，这里直接返回容器内的stage
     private void showMainStage() {
+        // 当退出登录时，stage被保存在map容器中，这里直接返回容器内的stage
         if (hasStage(MainController.class.getName())) {
             showStage(MainController.class.getName());
         } else {
@@ -220,7 +220,7 @@ public class LoginController extends AbstractController implements Initializable
             Platform.runLater(() -> {
                 final MainController mainController = new MainController();
                 Stage stage = mainController.loadStage(new Stage(), Properties.MAIN_FXML_URL);
-                if (!OsInfoUtils.isLinux()) {
+                if (OsInfoUtils.isWindows() || OsInfoUtils.isMacOS0()) {
                     MySystemTray.getInstance().enableTray(stage, mainController);
                 }
                 stage.show();

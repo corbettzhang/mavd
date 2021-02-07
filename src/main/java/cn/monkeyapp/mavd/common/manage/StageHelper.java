@@ -126,4 +126,12 @@ public class StageHelper {
         System.exit(0);
     }
 
+
+    public static void removeOtherStage(String key) {
+        showStage(key);
+        final Map<String, Stage> stringStageMap = STAGE_MAP.entrySet().stream()
+                .filter((e) -> !e.getKey().contains(key))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        stringStageMap.keySet().forEach(STAGE_MAP::remove);
+    }
 }

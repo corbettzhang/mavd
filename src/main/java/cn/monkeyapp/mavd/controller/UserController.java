@@ -85,7 +85,7 @@ public class UserController extends AbstractController implements Initializable 
     @FXML
     private void logoutLabelMouseClicked(MouseEvent mouseEvent) {
         SwingUtilities.invokeLater(MySystemTray::destroyTray);
-        showStage(LoginController.class.getName());
+        removeOtherStage(LoginController.class.getName());
     }
 
     @Override

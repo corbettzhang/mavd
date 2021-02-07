@@ -3,7 +3,7 @@ package cn.monkeyapp.mavd.controller;
 import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.GlobalKeyListener;
 import cn.monkeyapp.mavd.common.Properties;
-import cn.monkeyapp.mavd.common.StyleManage;
+import cn.monkeyapp.mavd.common.StyleManager;
 import cn.monkeyapp.mavd.common.manage.LogManager;
 import cn.monkeyapp.mavd.common.manage.ThreadPoolManager;
 import cn.monkeyapp.mavd.entity.Preference;
@@ -154,9 +154,9 @@ public class PreferenceController extends AbstractController implements Initiali
         style.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             final Integer userData = (Integer) newValue.getUserData();
             if (userData == 1) {
-                StyleManage.updateStyle(StyleManage.DARK_CSS_URL);
+                StyleManager.updateStyle(StyleManager.DARK_CSS_URL);
             } else if (userData == 2) {
-                StyleManage.updateStyle(StyleManage.LIGHT_CSS_URL);
+                StyleManager.updateStyle(StyleManager.LIGHT_CSS_URL);
             } else {
                 // ignore
             }

@@ -4,7 +4,6 @@ import cn.monkeyapp.mavd.cache.LocalCache;
 import cn.monkeyapp.mavd.common.GlobalMenuBar;
 import cn.monkeyapp.mavd.common.Properties;
 import cn.monkeyapp.mavd.common.manage.LogManager;
-import cn.monkeyapp.mavd.common.manage.StageHelper;
 import cn.monkeyapp.mavd.entity.Session;
 import cn.monkeyapp.mavd.service.XmlService;
 import cn.monkeyapp.mavd.service.impl.XmlServiceImpl;
@@ -12,7 +11,6 @@ import cn.monkeyapp.mavd.util.FileUtils;
 import cn.monkeyapp.mavd.util.ObjectUtils;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
 import com.jfoenix.controls.JFXHamburger;
-import com.sun.javafx.css.StyleManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -31,6 +29,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.*;
@@ -44,6 +43,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Main Controller
+ *
  * @author Corbett Zhang
  */
 public class MainController extends AbstractController implements Initializable {
@@ -115,6 +116,9 @@ public class MainController extends AbstractController implements Initializable 
             final UserController userController = new UserController();
             final Stage stage = userController.loadStage(new Stage(), Properties.USER_FXML_URL);
             stage.setResizable(false);
+            if (stage.getStyle() != StageStyle.UTILITY) {
+                stage.initStyle(StageStyle.UTILITY);
+            }
             stage.setOnCloseRequest(event -> userController.removeStage(userController.getClass().getName()));
             stage.show();
 
@@ -254,7 +258,6 @@ public class MainController extends AbstractController implements Initializable 
         if (ObjectUtils.isEmpty(listVBox)) {
             loadList();
         }
-
         mainRightVBox.getChildren().set(1, listVBox);
         VBox.setVgrow(listVBox, Priority.ALWAYS);
     }
@@ -266,18 +269,20 @@ public class MainController extends AbstractController implements Initializable 
         }
         mainRightVBox.getChildren().set(1, settingVBox);
         VBox.setVgrow(settingVBox, Priority.ALWAYS);
-
     }
 
     @Override
     public Stage loadStage(Stage primaryStage, String listFxmlUrl) {
         super.loadingStage(primaryStage, listFxmlUrl, this);
-        primaryStage.setOnCloseRequest(event -> this.close(getClass().getName()));
+        primaryStage.setOnCloseRequest(event -> {
+            if (OsInfoUtils.isWindows() || OsInfoUtils.isMacOS0()) {
+                this.close(getClass().getName());
+            } else {
+                // 不支持系统托盘的操作系统，关闭主窗口时直接退出程序
+                this.exit();
+            }
+        });
         return primaryStage;
-    }
-
-    public void exit() {
-        StageHelper.exit();
     }
 
     private void bindAction(JFXHamburger burger) {
@@ -311,4 +316,8 @@ public class MainController extends AbstractController implements Initializable 
         return FileUtils.getAppProperties(FileUtils.APP_NAME);
     }
 
+    @Override
+    public void exit() {
+        super.exit();
+    }
 }
