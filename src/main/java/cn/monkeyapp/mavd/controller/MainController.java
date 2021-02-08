@@ -219,7 +219,7 @@ public class MainController extends AbstractController implements Initializable 
             //适用于MacOS的全局菜单
             GlobalMenuBar.loadMacMenuBar();
         } else if (OsInfoUtils.isWindows()) {
-            mainMenuBar.getMenus().addAll(GlobalMenuBar.getFileMenu(), GlobalMenuBar.getHelpMenu());
+            // ignore
         } else {
             mainMenuBar.getMenus().addAll(GlobalMenuBar.getFileMenu(), GlobalMenuBar.getHelpMenu());
         }

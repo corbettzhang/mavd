@@ -1,8 +1,13 @@
 package cn.monkeyapp.mavd.common;
 
 import cn.monkeyapp.mavd.common.manage.LogManager;
+import cn.monkeyapp.mavd.common.manage.StageHelper;
+import cn.monkeyapp.mavd.controller.AboutController;
 import cn.monkeyapp.mavd.controller.MainController;
+import cn.monkeyapp.mavd.controller.NewController;
+import cn.monkeyapp.mavd.controller.PreferenceController;
 import cn.monkeyapp.mavd.util.FileUtils;
+import cn.monkeyapp.mavd.util.OpenBrowserUtils;
 import cn.monkeyapp.mavd.util.OsInfoUtils;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -50,7 +55,8 @@ public class MySystemTray {
     /**
      * 初始化系统托盘
      *
-     * @param stage 为stage添加系统托盘
+     * @param stage          为stage添加系统托盘
+     * @param mainController 主窗体
      */
     private void doEnableTray(Stage stage, MainController mainController) {
         PopupMenu popupMenu = new PopupMenu();
@@ -62,13 +68,55 @@ public class MySystemTray {
             loadStage.toFront();
         }));
 
+        popupMenu.add(openItem);
+        popupMenu.addSeparator();
+
+        if (OsInfoUtils.isWindows()) {
+
+
+            MenuItem newItem = new MenuItem("新建");
+            newItem.addActionListener(event -> {
+                StageHelper.showStage(false, new NewController(), Properties.NEW_FXML_URL);
+            });
+
+            MenuItem settingItem = new MenuItem("偏好设置");
+            settingItem.addActionListener(e -> {
+                StageHelper.showStage(false, new PreferenceController(), Properties.PREFERENCE_FXML_URL);
+            });
+
+            // 帮助菜单
+            MenuItem aboutMenuItem = new MenuItem("关于");
+            aboutMenuItem.addActionListener(event -> {
+                StageHelper.showStage(false, new AboutController(), Properties.ABOUT_FXML_URL);
+            });
+
+            MenuItem updateMenuItem = new MenuItem("检查更新");
+            updateMenuItem.addActionListener(event -> {
+                OpenBrowserUtils.openUrl("https://github.com/corbettzhang/MAVD/releases/latest");
+            });
+
+            MenuItem supportMenuItem = new MenuItem("意见反馈");
+            supportMenuItem.addActionListener(event -> {
+                OpenBrowserUtils.openUrl("https://monkeyapp.cn/contacts");
+            });
+
+            popupMenu.add(newItem);
+            popupMenu.add(settingItem);
+            popupMenu.addSeparator();
+
+            popupMenu.add(aboutMenuItem);
+            popupMenu.add(updateMenuItem);
+            popupMenu.add(supportMenuItem);
+            popupMenu.addSeparator();
+        }
+
+
         MenuItem quitItem = new MenuItem("退出");
         quitItem.addActionListener(e -> {
             TRAY.remove(trayIcon);
             Platform.runLater(mainController::exit);
         });
 
-        popupMenu.add(openItem);
         popupMenu.add(quitItem);
 
         try {
