@@ -73,32 +73,20 @@ public class MySystemTray {
 
         if (OsInfoUtils.isWindows()) {
 
-
             MenuItem newItem = new MenuItem("新建");
-            newItem.addActionListener(event -> {
-                StageHelper.showStage(false, new NewController(), Properties.NEW_FXML_URL);
-            });
+            newItem.addActionListener(event -> Platform.runLater(() -> StageHelper.showStage(false, new NewController(), Properties.NEW_FXML_URL)));
 
             MenuItem settingItem = new MenuItem("偏好设置");
-            settingItem.addActionListener(e -> {
-                StageHelper.showStage(false, new PreferenceController(), Properties.PREFERENCE_FXML_URL);
-            });
+            settingItem.addActionListener(e -> Platform.runLater(() -> StageHelper.showStage(false, new PreferenceController(), Properties.PREFERENCE_FXML_URL)));
 
-            // 帮助菜单
             MenuItem aboutMenuItem = new MenuItem("关于");
-            aboutMenuItem.addActionListener(event -> {
-                StageHelper.showStage(false, new AboutController(), Properties.ABOUT_FXML_URL);
-            });
+            aboutMenuItem.addActionListener(event -> Platform.runLater(() -> StageHelper.showStage(false, new AboutController(), Properties.ABOUT_FXML_URL)));
 
             MenuItem updateMenuItem = new MenuItem("检查更新");
-            updateMenuItem.addActionListener(event -> {
-                OpenBrowserUtils.openUrl("https://github.com/corbettzhang/MAVD/releases/latest");
-            });
+            updateMenuItem.addActionListener(event -> Platform.runLater(() -> OpenBrowserUtils.openUrl("https://github.com/corbettzhang/MAVD/releases/latest")));
 
             MenuItem supportMenuItem = new MenuItem("意见反馈");
-            supportMenuItem.addActionListener(event -> {
-                OpenBrowserUtils.openUrl("https://monkeyapp.cn/contacts");
-            });
+            supportMenuItem.addActionListener(event -> Platform.runLater(() -> OpenBrowserUtils.openUrl("https://monkeyapp.cn/contacts")));
 
             popupMenu.add(newItem);
             popupMenu.add(settingItem);
