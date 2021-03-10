@@ -3,9 +3,11 @@
 - MAVD 是 Monkey App Video Download 的首字母简写，MAVD是一款开放源代码、免费软件，集成了视频采集，上载到云对象存储，并发布到Wordpress博客的自动化视频采集桌面应用程序。
 - MAVD 依赖**youtube-dl**库实现核心功能，也即是MAVD支持youtube-dl支持下载的网站，具体支持网站列表请查看[支持网站列表](https://monkeyapp.cn/help)
 - [官网](https://monkeyapp.cn),[Gitee](https://gitee.com/corbettzhang/MAVD),[Github](https://github.com/corbettzhang/MAVD)
+
 <br/>
 <br/>
 <br/>
+
 > features
 ---
 - 系统快捷键侦听，支持应用失去焦点时使用快捷键唤醒应用
@@ -15,18 +17,21 @@
 - 在JavaFX应用中调用外部库，例如youtube-dl,ffmpeg,webp...
 - 在JavaFX应用程序国际化
 - 在JavaFX应用程序全局切换暗黑、明亮样式
+
 <br/>
 <br/>
 <br/>
+
 > Quick Start
 ---
 ```
-https://github.com/corbettzhang/MAVD.git
-jfx:native
+git clone https://github.com/corbettzhang/MAVD.git
 ```
+
 <br/>
 <br/>
 <br/>
+
 > Build
 ---
 ```
@@ -37,6 +42,7 @@ Windows系统中打包exe可执行文件需要安装[Inno Setup Compiler](https:
 <br/>
 <br/>
 <br/>
+
 #### 感谢
 > MAVD应用依赖以下库：
 - jfoenix
@@ -56,15 +62,14 @@ Windows系统中打包exe可执行文件需要安装[Inno Setup Compiler](https:
 - 外部依赖库，由用户自行安装，而不是通过应用打包的方式。以减少应用安装包的大小
 - 支持不同的云平台OOS上传
 - 下载时，可设置线程速度调节
- 
 
+<br/>
+<br/>
+<br/>
+
+#### 应用截图
 
 ---
-
-<br/>
-<br/>
-<br/>
-#### 应用截图
 
 > 登录
 
