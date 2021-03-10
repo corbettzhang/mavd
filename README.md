@@ -1,4 +1,6 @@
-> MAVD是什么，以及MAVD实现的功能？
+[英文说明/English Documentation](https://github.com/corbettzhang/MAVD/blob/main/README_EN.md)
+
+>> MAVD是什么，以及MAVD实现的功能？
 ---
 - MAVD 是 Monkey App Video Download 的首字母简写，MAVD是一款开放源代码、免费软件，集成了视频采集，上载到云对象存储，并发布到Wordpress博客的自动化视频采集桌面应用程序。
 - MAVD 依赖**youtube-dl**库实现核心功能，也即是MAVD支持youtube-dl支持下载的网站，具体支持网站列表请查看[支持网站列表](https://monkeyapp.cn/help)
@@ -8,7 +10,7 @@
 <br/>
 <br/>
 
-> features
+> 特性
 ---
 - 系统快捷键侦听，支持应用失去焦点时使用快捷键唤醒应用
 - 让应用程序在Mac OS系统更接近于原生应用，菜单栏，程序坞等
@@ -22,7 +24,7 @@
 <br/>
 <br/>
 
-> Quick Start
+> 快速开始
 ---
 ```
 git clone https://github.com/corbettzhang/MAVD.git
@@ -32,7 +34,7 @@ git clone https://github.com/corbettzhang/MAVD.git
 <br/>
 <br/>
 
-> Build
+> 构建
 ---
 ```
 jfx:native
@@ -43,7 +45,7 @@ Windows系统中打包exe可执行文件需要安装[Inno Setup Compiler](https:
 <br/>
 <br/>
 
-#### 感谢
+> 感谢
 > MAVD应用依赖以下库：
 - jfoenix
 - controlsfx
@@ -67,23 +69,18 @@ Windows系统中打包exe可执行文件需要安装[Inno Setup Compiler](https:
 <br/>
 <br/>
 
-#### 应用截图
+> 应用截图
 
 ---
 
-> 登录
+- 登录
+- <img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/login.png" height="350" width="300" alt="登录"/>
 
-<img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/login.png" height="350" width="300" alt=""/>
+- 首页
+- <img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/main.png" height="470" width="640" alt="首页"/>
 
-> 首页
+- 偏好设置
+- <img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/preference.png" height="470" width="640" alt="偏好设置"/>
 
-<img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/main.png" height="470" width="640" alt=""/>
-
-> 偏好设置
-
-<img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/preference.png" height="470" width="640" alt=""/>
-
-> 任务
-
-<img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/loading.png" height="420" width="640" alt=""/>
-
+- 任务
+- <img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/loading.png" height="420" width="640" alt="任务"/>
