@@ -20,6 +20,7 @@ import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -56,6 +57,8 @@ public class ListController extends AbstractController implements Initializable 
     private static final Logger LOGGER = LogManager.getLogger(ListController.class);
     private static final SqliteService sqliteService = new SqliteServiceImpl();
     private static ObservableList<TaskProperty> data = FXCollections.observableArrayList();
+    public static SimpleBooleanProperty REFRESH_FLAG = new SimpleBooleanProperty(false);
+
 
     @FXML
     private VBox root;
@@ -106,8 +109,20 @@ public class ListController extends AbstractController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setData();
+        refresh();
         setupEditableTableView();
+
+        // 字段值改变监听事件，用于刷新列表
+        REFRESH_FLAG.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                refresh();
+                REFRESH_FLAG.set(false);
+            }
+        });
+    }
+
+    private void refresh() {
+        setData();
         flashTaskNum();
     }
 
@@ -147,6 +162,7 @@ public class ListController extends AbstractController implements Initializable 
         final Map<String, Integer> map = sqliteService.queryTaskStatus();
         activeLabel.setText(String.valueOf(map.get("active")));
         completedLabel.setText(String.valueOf(map.get("completed")));
+        editableTreeTableView.setRoot(new RecursiveTreeItem<>(data, RecursiveTreeObject::getChildren));
     }
 
     private <T> void setupCellValueFactory(JFXTreeTableColumn<TaskProperty, T> column, Function<TaskProperty, ObservableValue<T>> mapper) {
@@ -349,8 +365,7 @@ public class ListController extends AbstractController implements Initializable 
         MenuItem refresh = new MenuItem("刷新");
 
         refresh.setOnAction(event -> {
-            setData();
-            flashTaskNum();
+            refresh();
         });
         enter.setOnAction(event -> {
             if (editableTreeTableView.getSelectionModel().getSelectedItem() != null) {

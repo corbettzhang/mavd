@@ -75,5 +75,6 @@ public class NewController extends AbstractController implements Initializable {
             descriptionTextField.setText("");
             typeTextField.setText("");
         }
+        ListController.REFRESH_FLAG.set(true);
     }
 }
