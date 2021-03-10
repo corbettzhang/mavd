@@ -1,6 +1,6 @@
 [英文说明/English Documentation](https://github.com/corbettzhang/MAVD/blob/main/README_EN.md)
 
->> MAVD是什么，以及MAVD实现的功能？
+> MAVD是什么，以及MAVD实现的功能？
 ---
 - MAVD 是 Monkey App Video Download 的首字母简写，MAVD是一款开放源代码、免费软件，集成了视频采集，上载到云对象存储，并发布到Wordpress博客的自动化视频采集桌面应用程序。
 - MAVD 依赖**youtube-dl**库实现核心功能，也即是MAVD支持youtube-dl支持下载的网站，具体支持网站列表请查看[支持网站列表](https://monkeyapp.cn/help)

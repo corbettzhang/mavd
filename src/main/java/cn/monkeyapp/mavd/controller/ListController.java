@@ -109,6 +109,7 @@ public class ListController extends AbstractController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         refresh();
         setupEditableTableView();
 
