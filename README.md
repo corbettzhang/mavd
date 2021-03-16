@@ -41,6 +41,8 @@ jfx:native
 ```
 Windows系统中打包exe可执行文件需要安装[Inno Setup Compiler](https://jrsoftware.org/isdl.php)
 
+JDK版本为1.8版本，具体的版本是**jdk1.8.0_271**及以后 
+
 <br/>
 <br/>
 <br/>
