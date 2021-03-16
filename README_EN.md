@@ -41,6 +41,8 @@ jfx:native
 ```
 Packing the exe executable on a Windows system requires installation[Inno Setup Compiler](https://jrsoftware.org/isdl.php)
 
+The JDK version is 1.8, and the specific version is JDK 1.8.0_271 and later
+
 <br/>
 <br/>
 <br/>
