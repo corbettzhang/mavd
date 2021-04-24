@@ -35,7 +35,7 @@
                   </Label>
                </children>
             </HBox>
-            <Label text="Copyright © 2020-2021 MONKEYAPP.CN All rights reserved." VBox.vgrow="ALWAYS">
+            <Label text="Copyright © 2020-2021 mavd All rights reserved." VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Yuanti SC Light" size="13.0" />
                </font>

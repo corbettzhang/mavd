@@ -1,89 +1,99 @@
-[中文说明/Chinese Documentation](https://github.com/corbettzhang/MAVD/blob/main/README.md)
+**[中文说明](https://github.com/corbettzhang/mavd/blob/main/README.md)**
 
-> What is MAVD and what does MAVD implement?
+### What functions does **mavd** achieve, and what are the characteristics of **mavd**?
+
+**mavd** is an open source, free software developed based on **JavaFX**. It integrates video capture, uploads to cloud object storage, and publishes to **Wordpress** blog, an automated video capture desktop application
+
+**mavd** relies on the **youtube-dl** library to achieve core functions, **mavd** supports **youtube-dl** supports downloading sites, check **[list](http:ytdl-org.github.ioyoutube-dlsupportedsites.html)** to learn more
+
+> feature
+
 ---
-- Mavd is an open source, free software, integrated Video capture, upload to the cloud object storage, and publish to the WordPress blog automated Video capture desktop application.
-- Mavd relies on the **youtube-dl** library for its core functions, which are the sites that Mavd supports for **youtube-dl** downloads. See the list of supported sites[支持网站列表](https://monkeyapp.cn/help)
-- [官网](https://monkeyapp.cn),[Gitee](https://gitee.com/corbettzhang/MAVD),[Github](https://github.com/corbettzhang/MAVD)
 
-<br/>
-<br/>
-<br/>
+- Support multi-platform **Windows**, **MacOS**, **Linux**, and maintain roughly the same UI interface and functions
+- System shortcut key monitoring, support the use of shortcut keys to wake up the application when the application loses focus
+- Make the application closer to the native application, menu bar, dock, etc. in the MacOS system
+- System notification bar, how to send application messages through the notification bar under MacOS and Windows
+- Animation problem, how to make the thread cooperate with the interface linkage
+- Call external libraries in **JavaFX** applications, such as **youtube-dl**, **ffmpeg**, **webp** . . .
+- Implement internationalization in **JavaFX** applications
+- Realize global switching of dark and bright styles in **JavaFX** applications
 
-> Features
----
-- System shortcut key listening, support when the application loses focus to use the shortcut key to wake up the application
-- Make applications on Mac OS closer to native apps, menu bars, docking stations, etc
-- System Notification Bar, how to send application messages through the Notification Bar under MacOS and Windows
-- Animation problem, how to let the thread with interface linkage
-- Calling external libraries in JavaFX applications, such as YouTube-DL, FFmpeg, WebP...
-- JavaFX application internationalization
-- The JavaFX application switches the dark and bright styles globally
+### Quick Start
 
-<br/>
-<br/>
-<br/>
-
-> Quick Start
----
+Get the source code from **[Gitee](https:gitee.comcorbettzhangmavd)** or **[Github](https:github.comcorbettzhangmavd)** and start using
 ```
-git clone https://github.com/corbettzhang/MAVD.git
+git clone https://github.com/corbettzhang/mavd.git
 ```
 
-<br/>
-<br/>
-<br/>
+Construct
 
-> Build
----
 ```
 jfx:native
 ```
-Packing the exe executable on a Windows system requires installation[Inno Setup Compiler](https://jrsoftware.org/isdl.php)
 
-The JDK version is 1.8, and the specific version is JDK 1.8.0_271 and later
+Requires attention
 
-<br/>
-<br/>
-<br/>
+1. JDK version is jdk1.8.0_271 and later
+2. To package the **exe** executable file in the Windows system, you need to install **[Inno Setup Compiler](https:jrsoftware.orgisdl.php)**
+3. To use **mavd** in a **Windows** system, you need to install the dependency **[vcredist_x86](http://www.microsoft.com/downloads/info.aspx?na=41&srcfamilyid=a7b7a05e-6de6-4d3a-a423-37bf0912db84&srcdisplaylang=en&u=http%3a%2f%2fdownload.microsoft.com%2fdownload%2f5%2fB%2fC%2f5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E%2fvcredist_x86.exe)**
+4. To use **mavd** in a **Linux** system, you need to install and rely on **python2**. For specific steps, please refer to **[here](http:ytdl-org.github.ioyoutube-dlsupportedsites.html)**
+5. To use **Wordpress** user login, you need to install **JSON API User** and **JSON API** plug-in on the **Wordpress** website, and enable the login API
 
-#### Thanks
-> The MAVD application relies on the following libraries：
+### Update record
+
+---
+
+January 28, 2021
+
+v1.0.0 update content
+
+1.Package and release v 1.0.0 version
+
+2.Fix some bugs
+
+---
+
+February 15, 2021
+
+v1.0.1 update content
+
+1.Increase the dark style switching function
+
+2.Increase language internationalization function
+
+3.Fix some bugs
+
+---
+
+### Thanks to the following open source projects
+
+The **mavd** application depends on the following open source libraries
+
 - jfoenix
-- controlsfx
+- controlsfx*______________*
 - fontawesomefx
 - jnativehook
 - ffmpeg
 - youtube-dl
 - webp-io
 
-<br/>
-<br/>
-<br/>
+### New features that need to be developed
 
-> New features to be developed：
-- New interface, preview function, support to download different definition of the video
-- Externally dependent libraries, installed by the user, rather than by application packaging. To reduce the size of the application installation package
-- Support OOS uploads for different cloud platforms
-- Thread speed adjustment can be set when downloading
+- New interface, preview function, support for downloading videos of different definitions
 
-<br/>
-<br/>
-<br/>
+- External dependency libraries are installed by users themselves, not through application packaging. To reduce the size of the application installation package
 
-> Application screenshots
+- Support different cloud platforms OOS upload
 
----
+- When downloading, you can set the thread speed adjustment
 
-- The login
-- <img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/login.png" height="350" width="300" alt="The login"/>
+### App screenshot
 
-- Home page
-- <img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/main.png" height="470" width="640" alt="Home page"/>
+<img src="https://raw.githubusercontent.com/corbettzhang/mavd/main/assets/login.png" height="350" width="300" alt="Login"/>
 
-- Preferences
-- <img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/preference.png" height="470" width="640" alt="Preferences"/>
+<img src="https://raw.githubusercontent.com/corbettzhang/mavd/main/assets/main.png" height="470" width="640" alt="Home page"/>
 
-- Task
-- <img src="https://raw.githubusercontent.com/corbettzhang/MAVD/main/assets/loading.png" height="420" width="640" alt="Task"/>
+<img src="https://raw.githubusercontent.com/corbettzhang/mavd/main/assets/preference.png" height="470" width="640" alt="Preferences"/>
 
+<img src="https://raw.githubusercontent.com/corbettzhang/mavd/main/assets/loading.png" height="420" width="640" alt="Task"/>

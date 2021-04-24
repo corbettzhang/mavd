@@ -83,10 +83,10 @@ public class MySystemTray {
             aboutMenuItem.addActionListener(event -> Platform.runLater(() -> StageHelper.showStage(false, new AboutController(), Properties.ABOUT_FXML_URL)));
 
             MenuItem updateMenuItem = new MenuItem("检查更新");
-            updateMenuItem.addActionListener(event -> Platform.runLater(() -> OpenBrowserUtils.openUrl("https://github.com/corbettzhang/MAVD/releases/latest")));
+            updateMenuItem.addActionListener(event -> Platform.runLater(() -> OpenBrowserUtils.openUrl("https://github.com/corbettzhang/mavd/releases/latest")));
 
             MenuItem supportMenuItem = new MenuItem("意见反馈");
-            supportMenuItem.addActionListener(event -> Platform.runLater(() -> OpenBrowserUtils.openUrl("https://monkeyapp.cn/contacts")));
+            supportMenuItem.addActionListener(event -> Platform.runLater(() -> OpenBrowserUtils.openUrl("https://github.com/corbettzhang/mavd/issues")));
 
             popupMenu.add(newItem);
             popupMenu.add(settingItem);

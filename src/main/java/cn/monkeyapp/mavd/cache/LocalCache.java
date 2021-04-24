@@ -137,7 +137,7 @@ public class LocalCache implements ICache {
             cache = cache.entrySet().stream()
                     .filter((e) -> e.getKey().contains(filters))
                     .collect(Collectors.toMap(
-                            (e) -> (String) e.getKey(),
+                            Map.Entry::getKey,
                             Map.Entry::getValue
                     ));
         }

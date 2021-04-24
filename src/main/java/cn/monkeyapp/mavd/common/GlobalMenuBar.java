@@ -77,12 +77,12 @@ public class GlobalMenuBar {
         helpMenu.getItems().add(aboutMenuItem);
         MenuItem updateMenuItem = new MenuItem("检查更新");
         updateMenuItem.setOnAction(event -> {
-            OpenBrowserUtils.openUrl("https://github.com/corbettzhang/MAVD/releases/latest");
+            OpenBrowserUtils.openUrl("https://github.com/corbettzhang/mavd/releases/latest");
         });
         helpMenu.getItems().add(updateMenuItem);
         MenuItem supportMenuItem = new MenuItem("意见反馈");
         supportMenuItem.setOnAction(event -> {
-            OpenBrowserUtils.openUrl("https://monkeyapp.cn/contacts");
+            OpenBrowserUtils.openUrl("https://github.com/corbettzhang/mavd/issues");
         });
         helpMenu.getItems().add(supportMenuItem);
         return helpMenu;

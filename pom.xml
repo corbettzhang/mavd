@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.monkeyapp</groupId>
-    <artifactId>MAVD</artifactId>
+    <artifactId>mavd</artifactId>
     <version>1.0.1</version>
 
     <properties>
@@ -215,7 +215,7 @@
                     <!-- 桌面图标 -->
                     <needShortcut>true</needShortcut>
                     <!-- 公司名称 -->
-                    <vendor>monkeyapp.cn</vendor>
+                    <vendor>corbettzhang</vendor>
                     <!-- 输出详细构建信息 -->
                     <verbose>true</verbose>
                     <!-- 版本 -->
